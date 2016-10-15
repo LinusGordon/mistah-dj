@@ -1,0 +1,24 @@
+{
+  "name": "mistah-dj",
+  "version": "1.0.0",
+  "description": "polyhack 2016",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinusGordon/mistah-dj.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LinusGordon/mistah-dj/issues"
+  },
+  "homepage": "https://github.com/LinusGordon/mistah-dj#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "request": "^2.75.0"
+  }
+}
