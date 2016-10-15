@@ -213,9 +213,9 @@ function playSong() {
         console.log("IN PLAY SONG");
         console.log(currentSong);
         $.ajax({
-                url: "http://192.168.0.1000:8090/select",
+                url: "http://192.168.0.100:8090/select",
                 type: "POST",
-                contentType: "application/json",
+                contentType: "application/json; charset-utf8",
                 data: '{\
                           "ContentItem": {\
                             "source": "SPOTIFY",\
