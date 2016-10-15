@@ -16,5 +16,6 @@ Create and listen to a playlist with friends through the Mistah DJ Facebook chat
 - [x] Greetings, help, etc.
 - [x] Remove songs from playlist
 - [ ] Play     
-- [ ] Pause     
-- [ ] Bose API      
+- [ ] Pause 
+- [ ] Spotify API to search for songs     
+- [ ] Bose API to play music           
