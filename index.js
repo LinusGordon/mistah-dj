@@ -69,13 +69,13 @@ function get_uri(song){
                         var obj = JSON.parse(songRequest.responseText);
                         console.log(obj.tracks.items[0].uri);
                         var songContent = '{\
-                          "ContentItem": {\
+                          "ContentItem": \'{\
                             "source": "SPOTIFY",\
                             "type": "uri",\
                             "location": "' + obj.tracks.items[0].uri + '",\
                             "sourceAccount": "bosetest2"\
-                          }\
-                        }'
+                          }\'\
+                        }';
                         currentSong = songContent;  
                 }
         }
@@ -226,7 +226,7 @@ function playSong() {
                 complete: function(XMLHttpRequest, textStatus) {
                         //onEndAjax();
                 }
-        })
+        });
         // A post that takes a JSON of play
 
 
