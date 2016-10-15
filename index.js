@@ -175,7 +175,7 @@ function removeSong(sender, song) {
 		}
 	}
 	if(!found) {
-		sendTextMessage(sender, "Could not find '" + song + "' to remove from playlist.");
+		sendTextMessage(sender, "Could not find '" + song + " ' to remove from playlist.");
 	}
 }
 
