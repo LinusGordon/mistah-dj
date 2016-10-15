@@ -58,6 +58,7 @@ app.listen(app.get('port'), function() {
 function get_uri(song){
         if(song !== undefined) {
                 song = song.replace(/ /g,"%20");
+        }
                 var songRequest = new XMLHttpRequest();
                                 // Step 2: Make request to remote resource
                                 // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
@@ -79,7 +80,7 @@ function get_uri(song){
                                 currentSong = songContent;  
                         }
                 }
-        }
+
         
   }
 
