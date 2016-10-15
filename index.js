@@ -212,19 +212,10 @@ function removeSong(sender, song) {
 function playSong() {
         console.log("IN PLAY SONG");
         console.log(currentSong);
-        $.ajax({
-                url: "http://192.168.0.100:8090/select",
+        var string = 'url: "http://192.168.0.100:8090/select",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
-                data: '{\
-                          "ContentItem": {\
-                            "source": "SPOTIFY",\
-                            "type": "uri",\
-                            "location": "spotify:track:09CtPGIpYB4BrO8qb1RGsF",\
-                            "sourceAccount": "bosetest2"\
-                          }\
-                }',
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                data: ' + currentSong + ',error: function(XMLHttpRequest, textStatus, errorThrown) {
                         console.log(errorThrown);
                 },
                 success: function(data, textStatus) {
@@ -232,20 +223,30 @@ function playSong() {
                 },
                 complete: function(XMLHttpRequest, textStatus) {
                         //onEndAjax();
-                }
-        });
-        // A post that takes a JSON of play
-
-
-
-          // playRequest = new XMLHttpRequest();
-                        // // Step 2: Make request to remote resource
-                        // // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
-          // .play{
-          //    value = 1;
-          // }
-          // playRequest.open("post", IP_ADDRESS, true);
-   //    playRequest.send();
+                }';
+        // $.ajax({
+        //         url: "http://192.168.0.100:8090/select",
+        //         type: "POST",
+        //         contentType: "application/json; charset=utf-8",
+        //         data: '{\
+        //                   "ContentItem": {\
+        //                     "source": "SPOTIFY",\
+        //                     "type": "uri",\
+        //                     "location": "spotify:track:09CtPGIpYB4BrO8qb1RGsF",\
+        //                     "sourceAccount": "bosetest2"\
+        //                   }\
+        //         }',
+        //         error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //                 console.log(errorThrown);
+        //         },
+        //         success: function(data, textStatus) {
+        //                 console.log("success");
+        //         },
+        //         complete: function(XMLHttpRequest, textStatus) {
+        //                 //onEndAjax();
+        //         }
+        // });
+        $.ajax({string});
 
    paused = false; 
 }
