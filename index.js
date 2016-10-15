@@ -1,6 +1,13 @@
 'use strict'
 
-var $ = require('jQuery');
+require("jsdom").env("", function(err, window) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    var $ = require("jquery")(window);
+});
 
 const express = require('express');
 const bodyParser = require('body-parser');
