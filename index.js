@@ -64,7 +64,7 @@ app.post('/webhook/', function (req, res) {
             	sendTextMessage(sender, "To see your playlist type 'playlist?'");
             	sendTextMessage(sender, "To clear your playlist type 'clear'");
             	sendTextMessage(sender, "For more about me type 'more'");
-            } else if(text.startsWith("more") {
+            } else if(text.startsWith("more")) {
             	sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
             }
             else {
