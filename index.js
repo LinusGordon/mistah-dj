@@ -215,7 +215,7 @@ function playSong() {
         $.ajax({
                 url: "http://192.168.0.100:8090/select",
                 type: "POST",
-                contentType: "application/json; charset-utf8",
+                contentType: "application/json; charset=utf-8",
                 data: '{\
                           "ContentItem": {\
                             "source": "SPOTIFY",\
