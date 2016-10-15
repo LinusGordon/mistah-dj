@@ -123,7 +123,7 @@ app.post('/webhook/', function (req, res) {
                                         sendTextMessage(sender, output);
             } else if(text.startsWith("more")) { // more
                         sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
-            } else if(text.startsWith("play")) { // play song
+            } else if(text.startsWith("play ")) { // play song
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
