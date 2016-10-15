@@ -56,7 +56,7 @@ app.post('/webhook/', function (req, res) {
             	sendTextMessage(sender, "Playlist count is now: " + playlist.length);
             } else if(text.startsWith("hey") || text.startsWith("hi")) {
             	sendTextMessage(sender, "Hey! I'm Mistah DJ. If you need help please type 'help.'");
-            } else if(text.startsWith("sup") || text.startsWith("watsup")) {
+            } else if(text.startsWith("sup") || text.startsWith("watsup") || text.startsWith("what's up") || text.startsWith("whatsup") || text.startsWith("whatsup")) {
             	sendTextMessage(sender, "sup bro");
             } else if(text.startsWith("help")) {
             	sendTextMessage(sender, "To add a song, type 'add [song name]'");
