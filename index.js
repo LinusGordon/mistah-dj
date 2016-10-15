@@ -61,11 +61,13 @@ app.post('/webhook/', function (req, res) {
             } else if(text.startsWith("sup") || text.startsWith("watsup") || text.startsWith("whats up") || text.startsWith("whatsup")) {
             	sendTextMessage(sender, "sup bro");
             } else if(text.startsWith("help")) {
-            	sendTextMessage(sender, "To add a song, type 'add [song name]'");
-            	sendTextMessage(sender, "To remove a song type 'remove [song name]");
-            	sendTextMessage(sender, "To see your playlist type 'playlist?'");
-            	sendTextMessage(sender, "To clear your playlist type 'clear'");
-            	sendTextMessage(sender, "For more about me type 'more'");
+            	var output = "To add a song, type 'add [song name]'\n";
+            	output += "To add a song, type 'add [song name]'\n";
+            	output += "To remove a song type 'remove [song name]\n";
+            	output += "To see your playlist type 'playlist?'\n";
+            	output += "To clear your playlist type 'clear'\n";
+            	output += "For more about me type 'more'\n");
+				sendTextMessage(sender, output);
             } else if(text.startsWith("more")) {
             	sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
             }
