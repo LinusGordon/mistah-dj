@@ -6,6 +6,7 @@ const request = require('request');
 const app = express();
 
 IP_ADDRESS = "130.64.149.79:8888";
+console.log(IP_ADDRESS);
 SPOTIFY_USERNAME = ""; // TODO
 
 var playlist = [];
