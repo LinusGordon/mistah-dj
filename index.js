@@ -5,7 +5,13 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
+IP_ADDRESS = "130.64.149.79:8888";
+SPOTIFY_USERNAME = ""; // TODO
+
 var playlist = [];
+currentSong;
+paused; // flag for paused or not
+songNumber; // keeps track of where we are in playlist
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -33,18 +39,41 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
 });
 
+function get_uri(song){
+	  song = song.replace(/ /g,"%20");
+
+	  request = new XMLHttpRequest();
+			// Step 2: Make request to remote resource
+			// NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
+	  request.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", true);
+      request.send();
+      
+      request.onreadystatechange = function() {
+      	console.log(request.readyState);
+        if(request.readyState == 4) {
+        	var obj = JSON.parse(request.responseText);
+					return obj.tracks.items[0].uri;  
+
+        }
+      }
+
+  }
+
+
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging;
     for (let i = 0; i < messaging_events.length; i++) {
         let event = req.body.entry[0].messaging[i];
         let sender = event.sender.id;
         if (event.message && event.message.text) {
+        	if(playlist.length === 0) {
+        		songNumber = 0;
+        	}
             let text = event.message.text.toLowerCase();
             text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // Remove all non-alphanumeric characters
             if(text.endsWith("playlist?")) {
             	printPlaylist(sender);
-            }
-            else if(text.startsWith("add") && !text.startsWith("added")) {
+            } else if(text.startsWith("add") && !text.startsWith("added")) {
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	var song = text.substr(text.indexOf("add") + 3, text.length);
             	playlist.push(song);
@@ -54,6 +83,7 @@ app.post('/webhook/', function (req, res) {
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	removeSong(sender, text);
             } else if(text.startsWith("clear")) {
+            	songNumber = 0;
             	clearPlaylist();
             	sendTextMessage(sender, "Playlist count is now: " + playlist.length);
             } else if(text.startsWith("hey") || text.startsWith("hi")) {
@@ -70,8 +100,25 @@ app.post('/webhook/', function (req, res) {
 				sendTextMessage(sender, output);
             } else if(text.startsWith("more")) {
             	sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
-            }
-            else {
+            } else if(text.startsWith("play")) {
+	            	if(playlist.length > 0) {
+	 		           	currentSong = get_uri(playlist[songNumber]);
+	 		           	playSong();
+	 		        }
+ 		        	else {
+ 		        		sendTextMessage(sender, "There's nothing in your playlist to play!")
+ 		        	}
+            } else if(text.startsWith("pause")) {
+            		pauseSong();
+            } else if(text.indexOf("next song") !== -1 && text.indexOf("play") !== -1) {
+            	songNumber++;
+            	currentSong = get_uri(playlist[songNumber]);
+            	playSong();
+            } else if(text.indexOf("previous song") !== -1 && text.indexOf("play") !== -1) {
+            	songNumber--;
+            	currentSong = get_uri(playlist[songNumber]);
+            	playSong();
+            } else {
             	sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
             }
         }
@@ -128,4 +175,27 @@ function removeSong(sender, song) {
 	if(!found) {
 		sendTextMessage(sender, "Could not find " + song + " to remove from playlist.");
 	}
+}
+
+function playSong() {
+
+	// A post that takes a JSON of play
+
+
+
+	  // playRequest = new XMLHttpRequest();
+			// // Step 2: Make request to remote resource
+			// // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
+	  // .play{
+	  // 	value = 1;
+	  // }
+	  // playRequest.open("post", IP_ADDRESS, true);
+   //    playRequest.send();
+   paused = false;
+}
+
+function pauseSong() {
+	pause = true;
+	// Bose Speaker API
+	// same as above but pause
 }
