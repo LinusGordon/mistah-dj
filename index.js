@@ -218,7 +218,7 @@ function playSong() {
                 contentType: "application/json",
                 data: currentSong,
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        console.log("Error");
+                        console.log(errorThrown);
                 },
                 success: function(data, textStatus) {
                         console.log("success");
