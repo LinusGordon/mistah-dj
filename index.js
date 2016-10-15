@@ -126,7 +126,7 @@ app.post('/webhook/', function (req, res) {
                         if(playlist.length > 0) {
                                         currentSong = get_uri(playlist[songNumber]);
                                         playSong();
-                                    sendTextMessage(sender, songNumber);
+                                        sendTextMessage(sender, "Playing: " + playlist[songNumber]);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
