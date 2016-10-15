@@ -50,7 +50,7 @@ app.post('/webhook/', function (req, res) {
             	clearPlaylist();
             }
             else {
-            	sendTextMessage(sender, "You said: " + text.substring(0, 200) = " That command is unavailable.");
+            	sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
             }
         }
     }
