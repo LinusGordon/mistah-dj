@@ -46,6 +46,7 @@ app.post('/webhook/', function (req, res) {
             	playlist.push(song);
             	sendTextMessage(sender, "Added" + song + " to playlist.");
             } else if(text.startsWith("remove")) {
+            	text = text.replace(/remove/g,'');
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	removeSong(sender, text);
             }
