@@ -455,7 +455,7 @@ li {
     text-align: center;
     color: #fff;
     background-attachment: scroll;
-    background-image: url(../images/banner.jpg);
+    background-image: url(../images/dj.gif);
     background-position: center center;
     background-repeat: none;
     -webkit-background-size: cover;
@@ -463,6 +463,8 @@ li {
     -o-background-size: cover;
     background-size: cover;
 }
+
+
 
 .intro-text {
     position: relative;
@@ -1669,6 +1671,13 @@ footer {
 
 
 
+h1{
+    text-shadow: 2px 2px red;
+}
 
+.intro-text p {
+        text-shadow: 2px 2px black;
+
+}
 
 
