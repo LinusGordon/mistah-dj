@@ -7,7 +7,7 @@ const app = express();
 
 const IP_ADDRESS = "130.64.149.79:8888";
 console.log(IP_ADDRESS);
-const SPOTIFY_USERNAME = ""; // TODO
+const SPOTIFY_USERNAME = "bosetest2"; // TODO
 
 var playlist = [];
 var currentSong;
@@ -40,7 +40,10 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
 });
 
+
+
 function get_uri(song){
+
         song = song.replace(/ /g,"%20");
         request = new XMLHttpRequest();
                         // Step 2: Make request to remote resource
@@ -51,9 +54,18 @@ function get_uri(song){
                 console.log(request.readyState);
                 if(request.readyState == 4) {
                         var obj = JSON.parse(request.responseText);
-                        return obj.tracks.items[0].uri;  
+                        var songContent = {
+                          "ContentItem": {
+                            "source": "SPOTIFY",
+                            "type": "uri",
+                            "location": obj.tracks.items[0].uri,
+                            "sourceAccount": "bosetest2"
+                          }
+                        }
+                        return songContent;  
                 }
         }
+        
   }
 
 
@@ -125,7 +137,7 @@ app.post('/webhook/', function (req, res) {
                                 playSong();
                         }
             } else {
-                        sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
+                        sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is currently unavailable.");
             }
         }
     }
@@ -184,7 +196,21 @@ function removeSong(sender, song) {
 }
 
 function playSong() {
-
+        $.ajax({
+                url: "http://192.168.0.1000:8090/select",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: currentSong,
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                },
+                success: function(data, textStatus) {
+                        console.log(data);
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                        //onEndAjax();
+                }
+        })
         // A post that takes a JSON of play
 
 
@@ -202,7 +228,28 @@ function playSong() {
 }
 
 function pauseSong() {
-        pause = true;
+        $.ajax({
+                url: "http://192.168.0.1000:8090/key",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: '{\
+                          "key": {\
+                            "state": "press",\
+                            "sender": "Gabbo",\
+                            "value": "PAUSE"\
+                        }\
+                }',
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                },
+                success: function(data, textStatus) {
+                        console.log(data);
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                        //onEndAjax();
+                }
+        })
+        paused = true;
         // Bose Speaker API
         // same as above but pause
 }
