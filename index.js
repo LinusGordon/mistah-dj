@@ -148,6 +148,7 @@ app.post('/webhook/', function (req, res) {
                                 songNumber++;
                                 get_uri(playlist[songNumber]);
                                 playSong();
+                                sendTextMessage(sender, "Now playing: " + playlist[songNumber]);
                         }
             } else if(text.indexOf("previous song") !== -1 && text.indexOf("play") !== -1) { // user wants to play the previous song
                         if(songNumber === 0) {
