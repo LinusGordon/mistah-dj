@@ -212,18 +212,7 @@ function removeSong(sender, song) {
 function playSong() {
         console.log("IN PLAY SONG");
         console.log(currentSong);
-        var string = 'url: "http://192.168.0.100:8090/select",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: ' + currentSong + ',error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                },
-                success: function(data, textStatus) {
-                        console.log("success");
-                },
-                complete: function(XMLHttpRequest, textStatus) {
-                        //onEndAjax();
-                }';
+        var string = 'url: "http://192.168.0.100:8090/select", type: "POST", contentType: "application/json; charset=utf-8", data: ' + currentSong + ',error: function(XMLHttpRequest, textStatus, errorThrown) { console.log(errorThrown); }, success: function(data, textStatus) { console.log("success"); }, complete: function(XMLHttpRequest, textStatus) { //onEndAjax(); }';
         // $.ajax({
         //         url: "http://192.168.0.100:8090/select",
         //         type: "POST",
