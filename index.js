@@ -2,6 +2,8 @@
 
 var  $;
 
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 require("jsdom").env("", function(err, window) {
     if (err) {
         console.error(err);
