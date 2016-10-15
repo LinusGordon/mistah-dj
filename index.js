@@ -18,7 +18,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
-const IP_ADDRESS = "192.168.0.100:8888/";
+const IP_ADDRESS = "http://47fdca11.ngrok.io/";
 console.log(IP_ADDRESS);
 const SPOTIFY_USERNAME = "bosetest2"; // TODO
 
@@ -213,7 +213,7 @@ function playSong() {
         console.log("IN PLAY SONG");
         console.log(currentSong);
         $.ajax({
-                url: "http://192.168.0.100:8090/select",
+                url: "http://47fdca11.ngrok.io/select",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: currentSong,
@@ -233,7 +233,7 @@ function playSong() {
 
 function pauseSong() {
         $.ajax({
-                url: "http://192.168.0.1000:8090/key",
+                url: "http://47fdca11.ngrok.io/key",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: '{\
