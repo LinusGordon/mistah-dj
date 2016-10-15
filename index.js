@@ -41,23 +41,19 @@ app.listen(app.get('port'), function() {
 });
 
 function get_uri(song){
-	  song = song.replace(/ /g,"%20");
-
-	  request = new XMLHttpRequest();
-			// Step 2: Make request to remote resource
-			// NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
-	  request.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", true);
-      request.send();
-      
-      request.onreadystatechange = function() {
-      	console.log(request.readyState);
-        if(request.readyState == 4) {
-        	var obj = JSON.parse(request.responseText);
-					return obj.tracks.items[0].uri;  
-
+        song = song.replace(/ /g,"%20");
+        request = new XMLHttpRequest();
+                        // Step 2: Make request to remote resource
+                        // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
+        request.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", true);
+        request.send();     
+        request.onreadystatechange = function() {
+                console.log(request.readyState);
+                if(request.readyState == 4) {
+                        var obj = JSON.parse(request.responseText);
+                        return obj.tracks.items[0].uri;  
+                }
         }
-      }
-
   }
 
 
@@ -67,61 +63,69 @@ app.post('/webhook/', function (req, res) {
         let event = req.body.entry[0].messaging[i];
         let sender = event.sender.id;
         if (event.message && event.message.text) {
-        	if(playlist.length === 0) {
-        		songNumber = 0;
-        	}
+                if(playlist.length === 0) {
+                        songNumber = 0;
+                }
             let text = event.message.text.toLowerCase();
             text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
             if(text.endsWith("playlist?")) {
-            	printPlaylist(sender);
+                        printPlaylist(sender);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
-            	text = text.replace(/the song/g,''); // remove "the song" from string
-            	var song = text.substr(text.indexOf("add") + 3, text.length);
-            	playlist.push(song);
-            	sendTextMessage(sender, "Added" + song + " to playlist.");
+                        text = text.replace(/the song/g,''); // remove "the song" from string
+                        var song = text.substr(text.indexOf("add") + 3, text.length);
+                        playlist.push(song);
+                        sendTextMessage(sender, "Added" + song + " to playlist.");
             } else if(text.startsWith("remove")) {
-            	text = text.replace(/remove/g,'');
-            	text = text.replace(/the song/g,''); // remove "the song" from string
-            	removeSong(sender, text);
+                        text = text.replace(/remove/g,'');
+                        text = text.replace(/the song/g,''); // remove "the song" from string
+                        removeSong(sender, text);
             } else if(text.startsWith("clear")) { // clear the playlist
-            	songNumber = 0;
-            	clearPlaylist();
-            	sendTextMessage(sender, "Playlist count is now: " + playlist.length);
+                        songNumber = 0;
+                        clearPlaylist();
+                        sendTextMessage(sender, "Playlist count is now: " + playlist.length);
             } else if(text.startsWith("hey") || text.startsWith("hi")) { // greeting
-            	sendTextMessage(sender, "Hey! I'm Mistah DJ. If you need help please type 'help.'");
+                        sendTextMessage(sender, "Hey! I'm Mistah DJ. If you need help please type 'help.'");
             } else if(text.startsWith("sup") || text.startsWith("watsup") || text.startsWith("whats up") || text.startsWith("whatsup")) { // for fun
-            	sendTextMessage(sender, "sup");
+                        sendTextMessage(sender, "sup");
             } else if(text.startsWith("help")) { // help menu
-            	var output = "To add a song, type 'add [song name]'\n";
-            	output += "To add a song, type 'add [song name]'\n";
-            	output += "To remove a song type 'remove [song name]\n";
-            	output += "To see your playlist type 'playlist?'\n";
-            	output += "To clear your playlist type 'clear'\n";
-            	output += "For more about me type 'more'\n";
-				sendTextMessage(sender, output);
+                        var output = "To add a song, type 'add [song name]'\n";
+                        output += "To add a song, type 'add [song name]'\n";
+                        output += "To remove a song type 'remove [song name]\n";
+                        output += "To see your playlist type 'playlist?'\n";
+                        output += "To clear your playlist type 'clear'\n";
+                        output += "For more about me type 'more'\n";
+                                        sendTextMessage(sender, output);
             } else if(text.startsWith("more")) { // more
-            	sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
+                        sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
             } else if(text.startsWith("play")) { // play song
-	            	if(playlist.length > 0) {
-	 		           	currentSong = get_uri(playlist[songNumber]);
-	 		           	playSong();
-	 		            sendTextMessage(sender, songNumber);
-	 		        }
- 		        	else {
- 		        		sendTextMessage(sender, "There's nothing in your playlist to play!")
- 		        	}
+                        if(playlist.length > 0) {
+                                        currentSong = get_uri(playlist[songNumber]);
+                                        playSong();
+                                    sendTextMessage(sender, songNumber);
+                        }
+                        else {
+                                sendTextMessage(sender, "There's nothing in your playlist to play!")
+                        }
             } else if(text.startsWith("pause")) { // pause the song
-            		pauseSong();
+                        pauseSong();
             } else if(text.indexOf("next song") !== -1) { // user wants to play the next song
-            	songNumber++;
-            	currentSong = get_uri(playlist[songNumber]);
-            	playSong();
+                        if(songNumber === playlist.length) {
+                                sendTextMessage(sender, "You are currently listening to the last song. Add more!");
+                        } else {
+                                songNumber++;
+                                currentSong = get_uri(playlist[songNumber]);
+                                playSong();
+                        }
             } else if(text.indexOf("previous song") !== -1 && text.indexOf("play") !== -1) { // user wants to play the previous song
-            	songNumber--;
-            	currentSong = get_uri(playlist[songNumber]);
-            	playSong();
+                        if(songNumber === 0) {
+                                sendTextMessage(sender, "Sorry, you are currently listening to the first song.")
+                        } else {
+                                songNumber--;
+                                currentSong = get_uri(playlist[songNumber]);
+                                playSong();
+                        }
             } else {
-            	sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
+                        sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
             }
         }
     }
@@ -150,55 +154,55 @@ function sendTextMessage(sender, text) {
 }
 
 function printPlaylist(sender) {
-	if(playlist.length == 0) {
-		sendTextMessage(sender, "Sorry! There's nothing in your playlist!");
-	}
-	var output = "";
-	for(var i = 0; i < playlist.length; i++) {
-		output += (i + 1) + ") " + playlist[i] + "\n";
-	}
-	sendTextMessage(sender, output);
+        if(playlist.length == 0) {
+                sendTextMessage(sender, "Sorry! There's nothing in your playlist!");
+        }
+        var output = "";
+        for(var i = 0; i < playlist.length; i++) {
+                output += (i + 1) + ") " + playlist[i] + "\n";
+        }
+        sendTextMessage(sender, output);
 
 }
 
 function clearPlaylist() {
-	playlist = [];
+        playlist = [];
 }
 
 function removeSong(sender, song) {
-	var found = false;
-	for(var i = 0; i < playlist.length; i++) {
-		if(playlist[i] === song) {
-			playlist.splice(i, 1);
-			sendTextMessage(sender, "Removed!");
-			found = true;
-		}
-	}
-	if(!found) {
-		sendTextMessage(sender, "Could not find '" + song + " ' to remove from playlist.");
-	}
+        var found = false;
+        for(var i = 0; i < playlist.length; i++) {
+                if(playlist[i] === song) {
+                        playlist.splice(i, 1);
+                        sendTextMessage(sender, "Removed!");
+                        found = true;
+                }
+        }
+        if(!found) {
+                sendTextMessage(sender, "Could not find '" + song + " ' to remove from playlist.");
+        }
 }
 
 function playSong() {
 
-	// A post that takes a JSON of play
+        // A post that takes a JSON of play
 
 
 
-	  // playRequest = new XMLHttpRequest();
-			// // Step 2: Make request to remote resource
-			// // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
-	  // .play{
-	  // 	value = 1;
-	  // }
-	  // playRequest.open("post", IP_ADDRESS, true);
+          // playRequest = new XMLHttpRequest();
+                        // // Step 2: Make request to remote resource
+                        // // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
+          // .play{
+          //    value = 1;
+          // }
+          // playRequest.open("post", IP_ADDRESS, true);
    //    playRequest.send();
 
    paused = false; 
 }
 
 function pauseSong() {
-	pause = true;
-	// Bose Speaker API
-	// same as above but pause
+        pause = true;
+        // Bose Speaker API
+        // same as above but pause
 }
