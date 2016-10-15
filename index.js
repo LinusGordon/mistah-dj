@@ -59,6 +59,7 @@ function get_uri(song){
         if(song !== undefined) {
                 song = song.replace(/ /g,"%20");
         }
+
                 var songRequest = new XMLHttpRequest();
                                 // Step 2: Make request to remote resource
                                 // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
@@ -68,16 +69,20 @@ function get_uri(song){
                         console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
                                 var obj = JSON.parse(songRequest.responseText);
-                                console.log(obj.tracks.items[0].uri);
-                                var songContent = '{\
-                                  "ContentItem": {\
-                                    "source": "SPOTIFY",\
-                                    "type": "uri",\
-                                    "location": "' + obj.tracks.items[0].uri + '",\
-                                    "sourceAccount": "bosetest2"\
-                                  }\
-                                }';
-                                currentSong = songContent;  
+                                if(obj.tracks.items[0] == undefined) {
+                                    console.log("Not a song.");
+                                } else {
+                                    console.log(obj.tracks.items[0].uri);
+                                    var songContent = '{\
+                                      "ContentItem": {\
+                                        "source": "SPOTIFY",\
+                                        "type": "uri",\
+                                        "location": "' + obj.tracks.items[0].uri + '",\
+                                        "sourceAccount": "bosetest2"\
+                                      }\
+                                    }';
+                                    currentSong = songContent;  
+                                }
                         }
                 }
 
