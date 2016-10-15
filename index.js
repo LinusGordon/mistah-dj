@@ -68,13 +68,13 @@ function get_uri(song){
                 if(songRequest.readyState == 4) {
                         var obj = JSON.parse(songRequest.responseText);
                         console.log(obj.tracks.items[0].uri);
-                        var songContent = '{\
-                          "ContentItem": \'{\
-                            "source": "SPOTIFY",\
-                            "type": "uri",\
-                            "location": "' + obj.tracks.items[0].uri + '",\
-                            "sourceAccount": "bosetest2"\
-                          }\'\
+                        var songContent = '{\\
+                          "ContentItem": {\\
+                            "source": "SPOTIFY",\\
+                            "type": "uri",\\
+                            "location": "' + obj.tracks.items[0].uri + '",\\
+                            "sourceAccount": "bosetest2"\\
+                          }\\
                         }';
                         currentSong = songContent;  
                 }
