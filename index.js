@@ -13,14 +13,14 @@ require("jsdom").env("", function(err, window) {
     $ = require("jquery")(window);
 });
 
-var express = require('express');
-var bodyParser = require('body-parser');
-var request = require('request');
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const request = require('request');
+const app = express();
 
-var IP_ADDRESS = "192.168.0.100:8888/";
+const IP_ADDRESS = "192.168.0.100:8888/";
 console.log(IP_ADDRESS);
-var SPOTIFY_USERNAME = "bosetest2"; // TODO
+const SPOTIFY_USERNAME = "bosetest2"; // TODO
 
 var playlist = [];
 var currentSong;
@@ -157,7 +157,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200);
 })
 
-var token = "EAAX69ApMuKUBAEZCDeqvhVE2HBlM6os23ZBdal4hrxePhy0qQWZCDcsFWPw08nYRaezN9kc4p53isCB4stxr9beSXcZCWzV7PVDS2KD6LCkeeXCjlAEMYf7gTIP5sUZBxdPMGVDkEw1tY8raOYtR1ee6OCVKR9TddFGQZAspk5awZDZD";
+const token = "EAAX69ApMuKUBAEZCDeqvhVE2HBlM6os23ZBdal4hrxePhy0qQWZCDcsFWPw08nYRaezN9kc4p53isCB4stxr9beSXcZCWzV7PVDS2KD6LCkeeXCjlAEMYf7gTIP5sUZBxdPMGVDkEw1tY8raOYtR1ee6OCVKR9TddFGQZAspk5awZDZD";
 
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
