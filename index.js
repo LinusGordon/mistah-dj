@@ -43,11 +43,12 @@ app.post('/webhook/', function (req, res) {
             if(text.startsWith("add")) {
             	var song = text.substr(text.indexOf("add") + 4, text.length);
             	playlist.push(song);
-            	sendTextMessage(sender, "The count is " + text.substr(text.length - 1));
-            } else if(text.endsWith("playlist")) {
+            	sendTextMessage(sender, "Added " + song + " to playlist.");
+            } else if(text.endsWith("playlist?")) {
             	printPlaylist(sender);
             } else if(text.startsWith("clear")) {
             	clearPlaylist();
+            	sendTextMessage(sender, "Playlist count is now: " + playlist.length);
             }
             else {
             	sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
