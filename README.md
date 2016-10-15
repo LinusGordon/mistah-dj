@@ -1,6 +1,16 @@
-# mistah-dj
-
+# mistah-dj     
 Create and listen to a playlist with friends through the Mistah DJ Facebook chatbot.     
+
+## Demo Pictures:     
+### Adding songs:     
+
+![alt-text](https://github.com/LinusGordon/mistah-dj/blob/master/demo1.png)     
+
+### Removing songs:     
+
+![alt-text](https://github.com/LinusGordon/mistah-dj/blob/master/demo2.png)
+
+     
 #####To-Do:  
 - [x] Build playlist collaboratively     
 - [x] Greetings, help, etc.
