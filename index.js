@@ -69,7 +69,7 @@ app.post('/webhook/', function (req, res) {
             } else if(text.startsWith("more")) {
             	sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
             }
-            else if (!text.endsWith("playlist") {
+            else if (!text.endsWith("playlist")) {
             	sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
             }
         }
