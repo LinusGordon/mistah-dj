@@ -44,7 +44,7 @@ app.post('/webhook/', function (req, res) {
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	var song = text.substr(text.indexOf("add") + 3, text.length);
             	playlist.push(song);
-            	sendTextMessage(sender, "Added " + song + " to playlist.");
+            	sendTextMessage(sender, "Added" + song + " to playlist.");
             } else if(text.startsWith("remove")) {
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	removeSong(sender, text);
@@ -95,6 +95,7 @@ function clearPlaylist() {
 }
 
 function removeSong(sender, song) {
+	song = " " + song; //formatting for how it's added :/
 	var found = false;
 	for(var i = 0; i < playlist.length; i++) {
 		if(playlist[i] === song) {
