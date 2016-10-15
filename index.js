@@ -72,7 +72,7 @@ function get_uri(song){
                           "ContentItem": {\
                             "source": "SPOTIFY",\
                             "type": "uri",\
-                            "location": ' + obj.tracks.items[0].uri + ',\
+                            "location": "' + obj.tracks.items[0].uri + '",\
                             "sourceAccount": "bosetest2"\
                           }\
                         }'
