@@ -49,12 +49,23 @@ app.post('/webhook/', function (req, res) {
             	text = text.replace(/remove/g,'');
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	removeSong(sender, text);
-            }
-            else if(text.endsWith("playlist?")) {
+            } else if(text.endsWith("playlist?")) {
             	printPlaylist(sender);
             } else if(text.startsWith("clear")) {
             	clearPlaylist();
             	sendTextMessage(sender, "Playlist count is now: " + playlist.length);
+            } else if(text.startsWith("hey") || text.startsWith("hi")) {
+            	sendTextMessage(sender, "Hey! I'm Mistah DJ. If you need help please type 'help.'");
+            } else if(text.startsWith("sup") || text.startsWith("watsup")) {
+            	sendTextMessage(sender, "sup bro");
+            } else if(text.startsWith("help") {
+            	sendTextMessage(sender, "To add a song, type 'add [song name]'");
+            	sendTextMessage(sender, "To remove a song type 'remove [song name]");
+            	sendTextMessage(sender, "To see your playlist type 'playlist?'");
+            	sendTextMessage(sender, "To clear your playlist type 'clear'");
+            	sendTextMessage(sender, "For more about me type 'more'");
+            } else if(text.startsWith("more") {
+            	sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
             }
             else {
             	sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
