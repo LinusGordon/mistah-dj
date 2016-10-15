@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
+int count;
+
 app.set('port', (process.env.PORT || 5000));
 
 // Process application/x-www-form-urlencoded
@@ -38,7 +40,15 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id;
         if (event.message && event.message.text) {
             let text = event.message.text;
-            sendTextMessage(sender, "You said: " + text.substring(0, 200));
+            if(text.startsWith("Set count to")) {
+            	count = text.substr(text.length - 1);
+            	sendTextMessage(sender, "The count is " + text.substring(0,200));
+            } else if(text == "what is the count?") {
+            	sendTextMessage(sender, "The count is " + count);
+            }
+            else {
+            	sendTextMessage(sender, "You said: " + text.substring(0, 200));
+            }
         }
     }
     res.sendStatus(200);
