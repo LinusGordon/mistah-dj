@@ -76,7 +76,7 @@ function get_uri(song){
                             "sourceAccount": "bosetest2"\
                           }\
                         }'
-                        return songContent;  
+                        currentSong = songContent;  
                 }
         }
         
@@ -125,7 +125,7 @@ app.post('/webhook/', function (req, res) {
                         sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
             } else if(text.startsWith("play")) { // play song
                         if(playlist.length > 0) {
-                                        currentSong = get_uri(playlist[songNumber]);
+                                        get_uri(playlist[songNumber]);
                                         playSong();
                                         sendTextMessage(sender, "Playing: " + playlist[songNumber]);
                         }
@@ -139,7 +139,7 @@ app.post('/webhook/', function (req, res) {
                                 sendTextMessage(sender, "You are currently listening to the last song. Add more!");
                         } else {
                                 songNumber++;
-                                currentSong = get_uri(playlist[songNumber]);
+                                get_uri(playlist[songNumber]);
                                 playSong();
                         }
             } else if(text.indexOf("previous song") !== -1 && text.indexOf("play") !== -1) { // user wants to play the previous song
@@ -147,7 +147,7 @@ app.post('/webhook/', function (req, res) {
                                 sendTextMessage(sender, "Sorry, you are currently listening to the first song.")
                         } else {
                                 songNumber--;
-                                currentSong = get_uri(playlist[songNumber]);
+                                get_uri(playlist[songNumber]);
                                 playSong();
                         }
             } else {
