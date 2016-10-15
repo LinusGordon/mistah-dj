@@ -100,7 +100,7 @@ function removeSong(sender, song) {
 	for(var i = 0; i < playlist.length; i++) {
 		if(playlist[i] === song) {
 			playlist.splice(i, 1);
-			sendTextMessage(sender, "Removed " + playlist[i] + " from playlist.");
+			sendTextMessage(sender, "Removed!");
 			found = true;
 		}
 	}
