@@ -41,14 +41,16 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             let text = event.message.text.toLowerCase();
             if(text.startsWith("add")) {
-            	var song = text.substr(text.length - (text.indexOf("add") + 3));
+            	var song = text.substr(text.indexOf("add"), text.length);
             	playlist.push(song);
             	sendTextMessage(sender, "The count is " + text.substr(text.length - 1));
             } else if(text.endsWith("playlist")) {
             	printPlaylist(sender);
+            } else if(text.startsWith("clear")) {
+            	clearPlaylist();
             }
             else {
-            	sendTextMessage(sender, "You said: " + text.substring(0, 200));
+            	sendTextMessage(sender, "You said: " + text.substring(0, 200) = " That command is unavailable.");
             }
         }
     }
@@ -80,4 +82,8 @@ function printPlaylist(sender) {
 	for(var i = 0; i < playlist.length; i++) {
 		sendTextMessage(sender, playlist[i]);
 	}
+}
+
+function clearPlaylist() {
+	playlist = [];
 }
