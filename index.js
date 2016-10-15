@@ -10,9 +10,9 @@ console.log(IP_ADDRESS);
 const SPOTIFY_USERNAME = ""; // TODO
 
 var playlist = [];
-currentSong;
-paused; // flag for paused or not
-songNumber; // keeps track of where we are in playlist
+var currentSong;
+var paused; // flag for paused or not
+var songNumber; // keeps track of where we are in playlist
 
 app.set('port', (process.env.PORT || 5000));
 
