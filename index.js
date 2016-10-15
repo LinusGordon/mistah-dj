@@ -194,7 +194,7 @@ function playSong() {
 	  // playRequest.open("post", IP_ADDRESS, true);
    //    playRequest.send();
 
-   paused = false;
+   paused = false; 
 }
 
 function pauseSong() {
