@@ -210,6 +210,7 @@ function removeSong(sender, song) {
 }
 
 function playSong() {
+        console.log("IN PLAY SONG");
         console.log(currentSong);
         $.ajax({
                 url: "http://192.168.0.1000:8090/select",
