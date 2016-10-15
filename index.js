@@ -41,7 +41,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             let text = event.message.text.toLowerCase();
             if(text.startsWith("add")) {
-            	var song = text.substr(text.indexOf("add"), text.length);
+            	var song = text.substr(text.indexOf("add") + 4, text.length);
             	playlist.push(song);
             	sendTextMessage(sender, "The count is " + text.substr(text.length - 1));
             } else if(text.endsWith("playlist")) {
