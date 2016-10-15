@@ -42,7 +42,7 @@ app.post('/webhook/', function (req, res) {
             let text = event.message.text.toLowerCase();
             if(text.startsWith("add")) {
             	var song = text.substr(text.indexOf("add") + 4, text.length);
-            	playlist.push(song);
+            	playlist.push(text.substr(text.indexOf("add") + 4, text.length));
             	sendTextMessage(sender, "Added " + song + " to playlist.");
             } else if(text.endsWith("playlist?")) {
             	printPlaylist(sender);
