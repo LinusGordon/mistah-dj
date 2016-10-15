@@ -175,7 +175,7 @@ function removeSong(sender, song) {
 		}
 	}
 	if(!found) {
-		sendTextMessage(sender, "Could not find " + song + " to remove from playlist.");
+		sendTextMessage(sender, "Could not find" + song + " to remove from playlist.");
 	}
 }
 
@@ -193,7 +193,7 @@ function playSong() {
 	  // }
 	  // playRequest.open("post", IP_ADDRESS, true);
    //    playRequest.send();
-   
+
    paused = false;
 }
 
