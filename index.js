@@ -71,7 +71,7 @@ app.post('/webhook/', function (req, res) {
         		songNumber = 0;
         	}
             let text = event.message.text.toLowerCase();
-            text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // Remove all non-alphanumeric characters
+            text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
             if(text.endsWith("playlist?")) {
             	printPlaylist(sender);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
@@ -83,15 +83,15 @@ app.post('/webhook/', function (req, res) {
             	text = text.replace(/remove/g,'');
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	removeSong(sender, text);
-            } else if(text.startsWith("clear")) {
+            } else if(text.startsWith("clear")) { // clear the playlist
             	songNumber = 0;
             	clearPlaylist();
             	sendTextMessage(sender, "Playlist count is now: " + playlist.length);
-            } else if(text.startsWith("hey") || text.startsWith("hi")) {
+            } else if(text.startsWith("hey") || text.startsWith("hi")) { // greeting
             	sendTextMessage(sender, "Hey! I'm Mistah DJ. If you need help please type 'help.'");
-            } else if(text.startsWith("sup") || text.startsWith("watsup") || text.startsWith("whats up") || text.startsWith("whatsup")) {
-            	sendTextMessage(sender, "sup bro");
-            } else if(text.startsWith("help")) {
+            } else if(text.startsWith("sup") || text.startsWith("watsup") || text.startsWith("whats up") || text.startsWith("whatsup")) { // for fun
+            	sendTextMessage(sender, "sup");
+            } else if(text.startsWith("help")) { // help menu
             	var output = "To add a song, type 'add [song name]'\n";
             	output += "To add a song, type 'add [song name]'\n";
             	output += "To remove a song type 'remove [song name]\n";
@@ -99,23 +99,24 @@ app.post('/webhook/', function (req, res) {
             	output += "To clear your playlist type 'clear'\n";
             	output += "For more about me type 'more'\n";
 				sendTextMessage(sender, output);
-            } else if(text.startsWith("more")) {
+            } else if(text.startsWith("more")) { // more
             	sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
-            } else if(text.startsWith("play")) {
+            } else if(text.startsWith("play")) { // play song
 	            	if(playlist.length > 0) {
 	 		           	currentSong = get_uri(playlist[songNumber]);
 	 		           	playSong();
+	 		            sendTextMessage(sender, songNumber);
 	 		        }
  		        	else {
  		        		sendTextMessage(sender, "There's nothing in your playlist to play!")
  		        	}
-            } else if(text.startsWith("pause")) {
+            } else if(text.startsWith("pause")) { // pause the song
             		pauseSong();
-            } else if(text.indexOf("next song") !== -1 && text.indexOf("play") !== -1) {
+            } else if(text.indexOf("next song") !== -1) { // user wants to play the next song
             	songNumber++;
             	currentSong = get_uri(playlist[songNumber]);
             	playSong();
-            } else if(text.indexOf("previous song") !== -1 && text.indexOf("play") !== -1) {
+            } else if(text.indexOf("previous song") !== -1 && text.indexOf("play") !== -1) { // user wants to play the previous song
             	songNumber--;
             	currentSong = get_uri(playlist[songNumber]);
             	playSong();
@@ -192,6 +193,7 @@ function playSong() {
 	  // }
 	  // playRequest.open("post", IP_ADDRESS, true);
    //    playRequest.send();
+   
    paused = false;
 }
 
