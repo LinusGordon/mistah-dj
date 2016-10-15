@@ -218,10 +218,10 @@ function playSong() {
                 contentType: "application/json; charset=utf-8",
                 data: currentSong,
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        console.log(errorThrown);
+                        console.log("Error");
                 },
                 success: function(data, textStatus) {
-                        console.log(data);
+                        console.log("success");
                 },
                 complete: function(XMLHttpRequest, textStatus) {
                         //onEndAjax();
