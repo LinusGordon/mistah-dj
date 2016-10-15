@@ -58,7 +58,7 @@ app.listen(app.get('port'), function() {
 function get_uri(song){
 
         song = song.replace(/ /g,"%20");
-        songRequest = new XMLHttpRequest();
+        var songRequest = new XMLHttpRequest();
                         // Step 2: Make request to remote resource
                         // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
         songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", true);
