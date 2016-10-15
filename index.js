@@ -137,7 +137,7 @@ app.post('/webhook/', function (req, res) {
             } else if(text.startsWith("pause")) { // pause the song
                         pauseSong();
             } else if(text.indexOf("next song") != -1) { // user wants to play the next song
-                        if(songNumber === playlist.length) {
+                        if(songNumber === playlist.length - 1) {
                                 sendTextMessage(sender, "You are currently listening to the last song. Add more!");
                         } else {
                                 songNumber++;
