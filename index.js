@@ -231,7 +231,7 @@ function playSong() {
                         console.log("success");
                 },
                 complete: function(XMLHttpRequest, textStatus) {
-                        //onEndAjax();
+                        console.log("success");
                 }
         });
 
