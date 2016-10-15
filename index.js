@@ -58,15 +58,15 @@ app.listen(app.get('port'), function() {
 function get_uri(song){
 
         song = song.replace(/ /g,"%20");
-        request = new XMLHttpRequest();
+        songRequest = new XMLHttpRequest();
                         // Step 2: Make request to remote resource
                         // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
-        request.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", true);
-        request.send();     
-        request.onreadystatechange = function() {
-                console.log(request.readyState);
-                if(request.readyState == 4) {
-                        var obj = JSON.parse(request.responseText);
+        songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", true);
+        songRequest.send();     
+        songRequest.onreadystatechange = function() {
+                console.log(songRequest.readyState);
+                if(songRequest.readyState == 4) {
+                        var obj = JSON.parse(songRequest.responseText);
                         var songContent = {
                           "ContentItem": {
                             "source": "SPOTIFY",
