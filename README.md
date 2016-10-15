@@ -1,5 +1,5 @@
 # mistah-dj     
-Create and listen to a playlist with friends through the Mistah DJ Facebook chatbot.     
+Build and listen to a playlist with friends through the Mistah DJ Facebook chatbot.     
 
 ## Demo Pictures:     
 ### Adding songs:     
@@ -15,7 +15,10 @@ Create and listen to a playlist with friends through the Mistah DJ Facebook chat
 - [x] Build playlist collaboratively     
 - [x] Greetings, help, etc.
 - [x] Remove songs from playlist
-- [ ] Play     
-- [ ] Pause 
-- [ ] Spotify API to search for songs     
-- [ ] Bose API to play music           
+- [x] Play     
+- [x] Pause 
+- [x] Spotify API to search for songs     
+- [x] Bose API to play music      
+- [x] Play next and play previous     
+
+ 
