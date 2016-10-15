@@ -215,7 +215,7 @@ function playSong() {
         $.ajax({
                 url: "http://192.168.0.1000:8090/select",
                 type: "POST",
-                contentType: "application/json; charset=utf-8",
+                contentType: "application/json",
                 data: currentSong,
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                         console.log("Error");
