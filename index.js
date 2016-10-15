@@ -146,7 +146,7 @@ app.post('/webhook/', function (req, res) {
                                 sendTextMessage(sender, "You are currently listening to the last song. Add more!");
                         } else {
                                 songNumber++;
-                                get_uri(playlist[songNumber]);
+                                get_uri(playlist[songNumber + 1]);
                                 playSong();
                                 sendTextMessage(sender, "Now playing: " + playlist[songNumber]);
                         }
@@ -155,7 +155,7 @@ app.post('/webhook/', function (req, res) {
                                 sendTextMessage(sender, "Sorry, you are currently listening to the first song.")
                         } else {
                                 songNumber--;
-                                get_uri(playlist[songNumber]);
+                                get_uri(playlist[songNumber - 1]);
                                 playSong();
                         }
             } else {
