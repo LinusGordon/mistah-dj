@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
-var count;
+var playlist = [];
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -39,12 +39,13 @@ app.post('/webhook/', function (req, res) {
         let event = req.body.entry[0].messaging[i];
         let sender = event.sender.id;
         if (event.message && event.message.text) {
-            let text = event.message.text;
-            if(text.startsWith("Set count to")) {
-            	count = text.substr(text.length - 1);
-            	sendTextMessage(sender, "The count is " + text.substring(0,200));
-            } else if(text == "what is the count?") {
-            	sendTextMessage(sender, "The count is " + count);
+            let text = event.message.text.toLowerCase();
+            if(text.startsWith("add")) {
+            	var song = text.substr(text.length - (text.indexOf("add") + 3));
+            	playlist.push(song);
+            	sendTextMessage(sender, "The count is " + text.substr(text.length - 1));
+            } else if(text.endsWith("playlist")) {
+            	printPlaylist();
             }
             else {
             	sendTextMessage(sender, "You said: " + text.substring(0, 200));
@@ -73,4 +74,10 @@ function sendTextMessage(sender, text) {
             console.log('Error: ', response.body.error);
         }
     });
+}
+
+function printPlaylist() {
+	for(var i = 0; i < playlist.length; i++) {
+		sendTextMessage(sender, playlist[i]);
+	}
 }
