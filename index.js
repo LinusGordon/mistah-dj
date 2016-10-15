@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
-const IP_ADDRESS = "130.64.149.79:8888";
+const IP_ADDRESS = "192.168.0.100:8888/";
 console.log(IP_ADDRESS);
 const SPOTIFY_USERNAME = "bosetest2"; // TODO
 
