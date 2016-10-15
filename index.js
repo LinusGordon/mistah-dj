@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
             	playlist.push(song);
             	sendTextMessage(sender, "The count is " + text.substr(text.length - 1));
             } else if(text.endsWith("playlist")) {
-            	printPlaylist();
+            	printPlaylist(sender);
             }
             else {
             	sendTextMessage(sender, "You said: " + text.substring(0, 200));
@@ -76,7 +76,7 @@ function sendTextMessage(sender, text) {
     });
 }
 
-function printPlaylist() {
+function printPlaylist(sender) {
 	for(var i = 0; i < playlist.length; i++) {
 		sendTextMessage(sender, playlist[i]);
 	}
