@@ -96,7 +96,6 @@ function clearPlaylist() {
 }
 
 function removeSong(sender, song) {
-	song = " " + song; //formatting for how it's added :/
 	var found = false;
 	for(var i = 0; i < playlist.length; i++) {
 		if(playlist[i] === song) {
