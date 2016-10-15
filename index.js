@@ -58,7 +58,7 @@ app.post('/webhook/', function (req, res) {
             	sendTextMessage(sender, "Playlist count is now: " + playlist.length);
             } else if(text.startsWith("hey") || text.startsWith("hi")) {
             	sendTextMessage(sender, "Hey! I'm Mistah DJ. If you need help please type 'help.'");
-            } else if(text.startsWith("sup") || text.startsWith("watsup") || text.startsWith("what's up") || text.startsWith("whatsup") || text.startsWith("whatsup")) {
+            } else if(text.startsWith("sup") || text.startsWith("watsup") || text.startsWith("whats up") || text.startsWith("whatsup")) {
             	sendTextMessage(sender, "sup bro");
             } else if(text.startsWith("help")) {
             	sendTextMessage(sender, "To add a song, type 'add [song name]'");
@@ -69,7 +69,7 @@ app.post('/webhook/', function (req, res) {
             } else if(text.startsWith("more")) {
             	sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
             }
-            else {
+            else if (!text.endsWith("playlist") {
             	sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
             }
         }
