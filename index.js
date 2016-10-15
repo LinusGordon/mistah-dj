@@ -216,14 +216,7 @@ function playSong() {
                 url: "http://192.168.0.100:8090/select",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
-                data: '{\
-                          "ContentItem": {\
-                            "source": "SPOTIFY",\
-                            "type": "uri",\
-                            "location": "spotify:track:09CtPGIpYB4BrO8qb1RGsF",\
-                            "sourceAccount": "bosetest2"\
-                          }\
-                }',
+                data: currentSong,
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                         console.log(errorThrown);
                 },
