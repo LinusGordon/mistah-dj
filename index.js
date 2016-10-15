@@ -41,10 +41,15 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             let text = event.message.text.toLowerCase();
             if(text.startsWith("add") && !text.startsWith("added")) {
+            	text = text.replace(/the song/g,''); // remove "the song" from string
             	var song = text.substr(text.indexOf("add") + 3, text.length);
             	playlist.push(song);
             	sendTextMessage(sender, "Added " + song + " to playlist.");
-            } else if(text.endsWith("playlist?")) {
+            } else if(text.startsWith("remove")) {
+            	text = text.replace(/the song/g,''); // remove "the song" from string
+            	removeSong(text);
+            }
+            else if(text.endsWith("playlist?")) {
             	printPlaylist(sender);
             } else if(text.startsWith("clear")) {
             	clearPlaylist();
@@ -87,4 +92,18 @@ function printPlaylist(sender) {
 
 function clearPlaylist() {
 	playlist = [];
+}
+
+function removeSong(song) {
+	var found = false;
+	for(var i = 0; i < playlist.length; i++) {
+		if(playlist[i] === song) {
+			playlist.splice(i, 1);
+			sendTextMessage(sender, "Removed " + playlist[i] + " from playlist.");
+			found = true;
+		}
+	}
+	if(!found) {
+		sendTextMessage(sender, "Could not find " + song + " to remove from playlist.");
+	}
 }
