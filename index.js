@@ -43,7 +43,7 @@ app.post('/webhook/', function (req, res) {
             if(text.startsWith("add")) {
             	var song = text.substr(text.indexOf("add") + 4, text.length);
             	playlist.push(text.substr(text.indexOf("add") + 4, text.length));
-            	//sendTextMessage(sender, "Added " + song + " to playlist.");
+            	sendTextMessage(sender, "Added " + song + " to playlist.");
             } else if(text.endsWith("playlist?")) {
             	printPlaylist(sender);
             } else if(text.startsWith("clear")) {
