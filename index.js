@@ -40,6 +40,10 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id;
         if (event.message && event.message.text) {
             let text = event.message.text.toLowerCase();
+            if(text.endsWith("playlist?")) {
+            	printPlaylist(sender);
+            }
+            text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // Remove all non-alphanumeric characters
             if(text.startsWith("add") && !text.startsWith("added")) {
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	var song = text.substr(text.indexOf("add") + 3, text.length);
@@ -49,8 +53,6 @@ app.post('/webhook/', function (req, res) {
             	text = text.replace(/remove/g,'');
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	removeSong(sender, text);
-            } else if(text.endsWith("playlist?")) {
-            	printPlaylist(sender);
             } else if(text.startsWith("clear")) {
             	clearPlaylist();
             	sendTextMessage(sender, "Playlist count is now: " + playlist.length);
