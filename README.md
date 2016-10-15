@@ -21,3 +21,4 @@ Create and listen to a playlist with friends through the Mistah DJ Facebook chat
 - [ ] Bose API to play music      
 - [ ] Play next and play previous     
 
+ 
