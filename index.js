@@ -40,11 +40,11 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id;
         if (event.message && event.message.text) {
             let text = event.message.text.toLowerCase();
+            text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // Remove all non-alphanumeric characters
             if(text.endsWith("playlist?")) {
             	printPlaylist(sender);
             }
-            text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // Remove all non-alphanumeric characters
-            if(text.startsWith("add") && !text.startsWith("added")) {
+            else if(text.startsWith("add") && !text.startsWith("added")) {
             	text = text.replace(/the song/g,''); // remove "the song" from string
             	var song = text.substr(text.indexOf("add") + 3, text.length);
             	playlist.push(song);
@@ -69,7 +69,7 @@ app.post('/webhook/', function (req, res) {
             } else if(text.startsWith("more")) {
             	sendTextMessage(sender, "My name is Mistah DJ. I was built at Tufts Polyhack 2016.")
             }
-            else if (!text.endsWith("playlist")) {
+            else {
             	sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is unavailable.");
             }
         }
