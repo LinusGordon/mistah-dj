@@ -58,7 +58,7 @@ app.post('/webhook/', function (req, res) {
             	sendTextMessage(sender, "Hey! I'm Mistah DJ. If you need help please type 'help.'");
             } else if(text.startsWith("sup") || text.startsWith("watsup")) {
             	sendTextMessage(sender, "sup bro");
-            } else if(text.startsWith("help") {
+            } else if(text.startsWith("help")) {
             	sendTextMessage(sender, "To add a song, type 'add [song name]'");
             	sendTextMessage(sender, "To remove a song type 'remove [song name]");
             	sendTextMessage(sender, "To see your playlist type 'playlist?'");
