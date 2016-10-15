@@ -106,9 +106,9 @@ function printPlaylist(sender) {
 	}
 	var output = "";
 	for(var i = 0; i < playlist.length; i++) {
-		output += playlist[i] + "\n";
+		output += (i + 1) + ") " + playlist[i] + "\n";
 	}
-	sendTextMessage(sender, order);
+	sendTextMessage(sender, output);
 
 }
 
