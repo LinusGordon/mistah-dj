@@ -101,9 +101,15 @@ function sendTextMessage(sender, text) {
 }
 
 function printPlaylist(sender) {
-	for(var i = 0; i < playlist.length; i++) {
-		sendTextMessage(sender, playlist[i]);
+	if(playlist.length == 0) {
+		sendTextMessage(sender, "Sorry! There's nothing in your playlist!");
 	}
+	var output = "";
+	for(var i = 0; i < playlist.length; i++) {
+		output += playlist[i] + "\n";
+	}
+	sendTextMessage(sender, order);
+
 }
 
 function clearPlaylist() {
