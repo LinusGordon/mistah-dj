@@ -3,7 +3,6 @@
 var  $;
 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var parse = require('parse');
 
 require("jsdom").env("", function(err, window) {
     if (err) {
@@ -229,7 +228,6 @@ function playSong() {
             type: 'POST',
             contentType: "text/xml",
             dataType: "text",
-            success : parse,
             error : function (xhr, ajaxOptions, thrownError){  
                 console.log(xhr.status);          
                 console.log(thrownError);
