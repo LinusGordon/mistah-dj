@@ -20,7 +20,7 @@ const app = express();
 
 const IP_ADDRESS = "http://47fdca11.ngrok.io/";
 console.log(IP_ADDRESS);
-const SPOTIFY_USERNAME = "bosetest2";
+const SPOTIFY_USERNAME = "linusbose";
 
 var playlist = [];
 var currentSong;
@@ -78,7 +78,7 @@ function get_uri(song){
                                         "source": "SPOTIFY",\
                                         "type": "uri",\
                                         "location": "' + obj.tracks.items[0].uri + '",\
-                                        "sourceAccount": "bosetest2"\
+                                        "sourceAccount": "linusbose"\
                                       }\
                                     }';
                                     currentSong = songContent;  
