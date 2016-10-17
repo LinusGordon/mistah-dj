@@ -223,7 +223,7 @@ function playSong() {
         console.log("IN PLAY SONG");
         console.log(currentSong);
         $.ajax({
-            url: IP_ADDRESS + '/select',
+            url: 'http://28eca88d.ngrok.io/select',
             data: currentSong, 
             type: 'POST',
             contentType: "text/xml",
@@ -254,7 +254,7 @@ function playSong() {
 
 function pauseSong() {
         $.ajax({
-                url: "http://28eca88d.ngrok.iokey",
+                url: "http://28eca88d.ngrok.io/key",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: '{\
