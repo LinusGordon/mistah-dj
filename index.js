@@ -257,13 +257,7 @@ function pauseSong() {
                 url: "http://28eca88d.ngrok.io/key",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
-                data: '{\
-                          "key": {\
-                            "state": "press",\
-                            "sender": "Gabbo",\
-                            "value": "PAUSE"\
-                        }\
-                }',
+                data: '<key state="press" sender="Gabbo">PAUSE</key>',
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                         console.log(errorThrown);
                 },
@@ -273,7 +267,28 @@ function pauseSong() {
                 complete: function(XMLHttpRequest, textStatus) {
                         //onEndAjax();
                 }
-        })
+        });
+        // $.ajax({
+        //         url: "http://28eca88d.ngrok.io/key",
+        //         type: "POST",
+        //         contentType: "application/json; charset=utf-8",
+        //         data: '{\
+        //                   "key": {\
+        //                     "state": "press",\
+        //                     "sender": "Gabbo",\
+        //                     "value": "PAUSE"\
+        //                 }\
+        //         }',
+        //         error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //                 console.log(errorThrown);
+        //         },
+        //         success: function(data, textStatus) {
+        //                 console.log(data);
+        //         },
+        //         complete: function(XMLHttpRequest, textStatus) {
+        //                 //onEndAjax();
+        //         }
+        // })
         paused = true;
         // Bose Speaker API
         // same as above but pause
