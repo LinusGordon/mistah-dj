@@ -143,14 +143,22 @@ app.post('/webhook/', function (req, res) {
                         }
             } else if(text.startsWith("pause")) { // pause the song
                         pauseSong();
-            } else if(text.startsWith("next song")) { // user wants to play the next song
+            } else if(text.startsWith("next song") || text.startsWith("play next song")) { // user wants to play the next song
                         if(songNumber === playlist.length - 1) {
                                 sendTextMessage(sender, "You are currently listening to the last song. Add more!");
                         } else {
                                 songNumber++;
                                 get_uri(playlist[songNumber + 1]);
                                 playSong();
-                                sendTextMessage(sender, "Press play to proceed to next song!");
+                                //sendTextMessage(sender, "Press play to proceed to next song!");
+                        }
+                        if(playlist.length > 0) {
+                                        get_uri(playlist[songNumber]);
+                                        playSong();
+                                        sendTextMessage(sender, "Playing: " + playlist[songNumber]);
+                        }
+                        else {
+                                sendTextMessage(sender, "There's nothing in your playlist to play!")
                         }
             } else if(text.indexOf("previous song") !== -1 && text.indexOf("play") !== -1) { // user wants to play the previous song
                         if(songNumber === 0) {
