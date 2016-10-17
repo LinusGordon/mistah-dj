@@ -18,7 +18,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
-const IP_ADDRESS = "http://3eb0e343.ngrok.io/";
+const IP_ADDRESS = "http://4c0b75fe.ngrok.io";
 console.log(IP_ADDRESS);
 const SPOTIFY_USERNAME = "linusbose";
 
@@ -73,14 +73,16 @@ function get_uri(song){
                                     console.log("Not a song.");
                                 } else {
                                     console.log(obj.tracks.items[0].uri);
-                                    var songContent = '{\
-                                      "ContentItem": {\
-                                        "source": "SPOTIFY",\
-                                        "type": "uri",\
-                                        "location": "' + obj.tracks.items[0].uri + '",\
-                                        "sourceAccount": "linusbose"\
-                                      }\
-                                    }';
+                                    var songContent = '<ContentItem source="SPOTIFY" type="uri" location="' + obj.tracks.items[0] + 'sourceAccount="linusbose" </ContentItem>'
+                                    // var songContent = '{\
+                                    //   "ContentItem": {\
+                                    //     "source": "SPOTIFY",\
+                                    //     "type": "uri",\
+                                    //     "location": "' + obj.tracks.items[0].uri + '",\
+                                    //     "sourceAccount": "linusbose"\
+                                    //   }\
+                                    // }';
+
                                     currentSong = songContent;  
                                 }
                         }
@@ -221,20 +223,32 @@ function playSong() {
         console.log("IN PLAY SONG");
         console.log(currentSong);
         $.ajax({
-                url: "http://3eb0e343.ngrok.io/select",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: currentSong,
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                },
-                success: function(data, textStatus) {
-                        console.log("success");
-                },
-                complete: function(XMLHttpRequest, textStatus) {
-                        console.log("success");
-                }
-        });
+            url: IP_ADDRESS + '/select',
+            data: currentSong, 
+            type: 'POST',
+            contentType: "text/xml",
+            dataType: "text",
+            success : parse,
+            error : function (xhr, ajaxOptions, thrownError){  
+                console.log(xhr.status);          
+                console.log(thrownError);
+            } 
+        }); 
+        // $.ajax({
+        //         url: "http://3eb0e343.ngrok.io/select",
+        //         type: "POST",
+        //         contentType: "application/json; charset=utf-8",
+        //         data: currentSong,
+        //         error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //                 console.log(errorThrown);
+        //         },
+        //         success: function(data, textStatus) {
+        //                 console.log("success");
+        //         },
+        //         complete: function(XMLHttpRequest, textStatus) {
+        //                 console.log("success");
+        //         }
+        // });
 
    paused = false; 
 }
