@@ -326,7 +326,7 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
-                    "image_url": '"' + songImage + '"',
+                    "image_url": songImage,
                     "buttons": [{
                         "type": "web_url",
                         "url": "https://www.messenger.com",
