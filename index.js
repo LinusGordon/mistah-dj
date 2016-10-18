@@ -149,7 +149,7 @@ app.post('/webhook/', function (req, res) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
                                         sendTextMessage(sender, "Playing: " + playlist[songNumber]);
-                                        //sendGenericMessage(sender);
+                                        sendGenericMessage(sender);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
@@ -163,7 +163,6 @@ app.post('/webhook/', function (req, res) {
                                 songNumber++;
                                 get_uri(playlist[songNumber + 1]);
                                 playSong();
-                                //sendTextMessage(sender, "Press play to proceed to next song!");
                         }
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
