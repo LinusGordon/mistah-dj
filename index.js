@@ -115,9 +115,9 @@ app.post('/webhook/', function (req, res) {
                         songNumber = 0;
                 }
             let text = event.message.text.toLowerCase();
-            text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
-            if(text.endsWith("playlist?")) {
-                        printPlaylist(sender);
+            text = text.replace(/[.,\/#!$%\^&\*;:{?}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
+            if(text.endsWith("playlist")) {
+                        sendGenericMessage(sender);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
                         song = text.substr(text.indexOf("add") + 3, text.length);
@@ -149,7 +149,6 @@ app.post('/webhook/', function (req, res) {
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
-                                        sendTextMessage(sender, "Playing: " + playlist[songNumber]);
                                         sendGenericMessage(sender);
                         }
                         else {
@@ -168,7 +167,7 @@ app.post('/webhook/', function (req, res) {
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
-                                        sendTextMessage(sender, "Playing: " + playlist[songNumber]);
+                                        sendGenericMessage(sender);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
@@ -181,9 +180,6 @@ app.post('/webhook/', function (req, res) {
                                 get_uri(playlist[songNumber - 1]);
                                 playSong();
                         }
-            } else if (text === 'generic') {
-                sendGenericMessage(sender);
-                continue;
             } else {
                         sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is currently unavailable.");
             }
@@ -324,7 +320,11 @@ function sendGenericMessage(sender) {
     for(var i = songNumber; i < playlist.length; i++) {
             var curSong = playlist[i];
             curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
-            var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+            if(i == songNumber) {
+                var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+            } else {
+                var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+            }
             messageData.attachment.payload.elements.push(jsonData);
             
     // let messageData = {
