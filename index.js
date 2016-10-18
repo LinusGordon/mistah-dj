@@ -73,6 +73,7 @@ function get_uri(song){
                                     console.log("Not a song.");
                                 } else {
                                     console.log(obj.tracks.items[0].uri);
+                                    var songImage = obj.tracks.art.['$t'];
                                     var songContent = '<ContentItem source="SPOTIFY" type="uri" location="' + obj.tracks.items[0].uri + '" sourceAccount="12173067090"></ContentItem>'
                                     // var songContent = '{\
                                     //   "ContentItem": {\
@@ -137,6 +138,7 @@ app.post('/webhook/', function (req, res) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
                                         sendTextMessage(sender, "Playing: " + playlist[songNumber]);
+                                        sendGenericMessage(sender);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
@@ -314,7 +316,7 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+                    "image_url": songImage,
                     "buttons": [{
                         "type": "web_url",
                         "url": "https://www.messenger.com",
