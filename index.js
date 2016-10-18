@@ -117,7 +117,7 @@ app.post('/webhook/', function (req, res) {
             let text = event.message.text.toLowerCase();
             text = text.replace(/[.,\/#!$%\^&\*;:{?}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
             if(text.endsWith("playlist")) {
-                        sendGenericMessage(sender);
+                        sendPlaylistCards(sender);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
                         song = text.substr(text.indexOf("add") + 3, text.length);
@@ -149,7 +149,7 @@ app.post('/webhook/', function (req, res) {
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
-                                        sendGenericMessage(sender);
+                                        sendPlaylistCards(sender);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
@@ -167,7 +167,7 @@ app.post('/webhook/', function (req, res) {
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
-                                        sendGenericMessage(sender);
+                                        sendPlaylistCards(sender);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
@@ -314,53 +314,55 @@ function pauseSong() {
         // same as above but pause
 }
 
-function sendGenericMessage(sender) {
-    song = song.replace(/\w\S*/g, function(song){return song.charAt(0).toUpperCase() + song.substr(1).toLowerCase();});
-    var messageData = { "attachment": { "type": "template", "payload": { "template_type": "generic", "elements" : []} } };
-    for(var i = songNumber; i < playlist.length; i++) {
-            var curSong = playlist[i];
-            curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
-            if(i == songNumber) {
-                var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
-            } else {
-                var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+function sendPlaylistCards(sender) {
+    if(playlist.length > 1) {
+        song = song.replace(/\w\S*/g, function(song){return song.charAt(0).toUpperCase() + song.substr(1).toLowerCase();});
+        var messageData = { "attachment": { "type": "template", "payload": { "template_type": "generic", "elements" : []} } };
+        for(var i = songNumber; i < playlist.length; i++) {
+                var curSong = playlist[i];
+                curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
+                if(i == songNumber) {
+                    var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+                } else {
+                    var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+                }
+                messageData.attachment.payload.elements.push(jsonData);
+                
+        // let messageData = {
+        //     "attachment": {
+        //         "type": "template",
+        //         "payload": {
+        //             "template_type": "generic",
+        //             "elements": [{
+        //                 "title": song,
+        //                 "subtitle": "Now playing",
+        //                 "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif',
+        //                 "buttons": [{
+        //                     "type": "web_url",
+        //                     "url": "https://linusgordon.github.io/mistah-dj",
+        //                     "title": "Mistah DJ Homepage"
+        //                 }],
+        //             }]
+        //         }
+        //     }
+        // }
+        }
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {access_token:token},
+            method: 'POST',
+            json: {
+                recipient: {id:sender},
+                message: messageData,
             }
-            messageData.attachment.payload.elements.push(jsonData);
-            
-    // let messageData = {
-    //     "attachment": {
-    //         "type": "template",
-    //         "payload": {
-    //             "template_type": "generic",
-    //             "elements": [{
-    //                 "title": song,
-    //                 "subtitle": "Now playing",
-    //                 "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif',
-    //                 "buttons": [{
-    //                     "type": "web_url",
-    //                     "url": "https://linusgordon.github.io/mistah-dj",
-    //                     "title": "Mistah DJ Homepage"
-    //                 }],
-    //             }]
-    //         }
-    //     }
-    // }
+        }, function(error, response, body) {
+            if (error) {
+                console.log('Error sending messages: ', error)
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error)
+            }
+        });
     }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:token},
-        method: 'POST',
-        json: {
-            recipient: {id:sender},
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    });
 }
 
 
