@@ -75,10 +75,11 @@ function get_uri(song){
                                 } else {
                                     console.log(obj.tracks.items[0]);
                                     if(obj.tracks.items[0].album != undefined) {
-                                        if(obj.tracks.items[0].album.images != undefined)
+                                        if(obj.tracks.items[0].album.images != undefined) {
                                             console.log("the artwork issssss:");
                                             console.log(obj.tracks.items[0].album.images[0].url);
                                             songImage = obj.tracks.items[0].album.images[0].url;
+                                         }
                                          else 
                                             console.log("NO ARTWORK");
                                     }
