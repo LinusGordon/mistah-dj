@@ -70,10 +70,10 @@ function get_uri(song){
                         console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
                                 var obj = JSON.parse(songRequest.responseText);
-                                console.log(obj.tracks.items[0]);
                                 if(obj.tracks.items[0] == undefined) {
                                     console.log("Not a song.");
                                 } else {
+                                    console.log(obj.tracks.items[0].images[0]);
                                     console.log(obj.tracks.items[0].uri);
                                     //songImage = obj.tracks.items.art['$t'];
                                     var songContent = '<ContentItem source="SPOTIFY" type="uri" location="' + obj.tracks.items[0].uri + '" sourceAccount="12173067090"></ContentItem>'
