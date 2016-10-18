@@ -27,6 +27,7 @@ var currentSong;
 var paused; // flag for paused or not
 var songNumber; // keeps track of where we are in playlist
 var songImage;
+var song;
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -119,7 +120,7 @@ app.post('/webhook/', function (req, res) {
                         printPlaylist(sender);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
-                        var song = text.substr(text.indexOf("add") + 3, text.length);
+                        song = text.substr(text.indexOf("add") + 3, text.length);
                         playlist.push(song);
                         sendTextMessage(sender, "Added" + song + " to playlist.");
             } else if(text.startsWith("remove")) {
@@ -318,32 +319,24 @@ function pauseSong() {
 }
 
 function sendGenericMessage(sender) {
+    song = song.replace(/\w\S*/g, function(song){return song.charAt(0).toUpperCase() + song.substr(1).toLowerCase();});
     let messageData = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": "First card",
-                    "subtitle": "Element #1 of an hscroll",
-                    "image_url": songImage,
+                    "title": song,
+                    "subtitle": "Now playing",
+                    "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif',
                     "buttons": [{
                         "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
+                        "url": "https://linusgordon.github.io/mistah-dj",
+                        "title": "Mistah DJ Homepage"
                     }, {
                         "type": "postback",
                         "title": "Postback",
                         "payload": "Payload for first element in a generic bubble",
-                    }],
-                }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-                    "buttons": [{
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
                     }],
                 }]
             }
