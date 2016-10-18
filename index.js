@@ -324,7 +324,7 @@ function sendGenericMessage(sender) {
     for(var i = songNumber; i < playlist.length; i++) {
             var curSong = playlist[i];
             curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
-            messageData += '{ "attachment": { "type": "template", "payload": { "template_type": "generic", "elements": [{ "title": song, "subtitle": "Now playing", "image_url": ' + 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' + ', "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], }] } } } }, ';
+            messageData += { "attachment": { "type": "template", "payload": { "template_type": "generic", "elements": [{ "title": song, "subtitle": "Now playing", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], }] } } } },;
     // let messageData = {
     //     "attachment": {
     //         "type": "template",
