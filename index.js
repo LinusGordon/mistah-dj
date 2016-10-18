@@ -325,7 +325,7 @@ function sendGenericMessage(sender) {
             var curSong = playlist[i];
             curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
             var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
-            messageData.attachment.elements.push(jsonData);
+            messageData.attachment.payload.elements.push(jsonData);
             
     // let messageData = {
     //     "attachment": {
