@@ -76,10 +76,9 @@ function get_uri(song){
                                     //console.log(obj.tracks.items[0]);
                                     if(obj.tracks.items[0].album != undefined) {
                                         if(obj.tracks.items[0].album.images != undefined) {
-                                            console.log("the artwork issssss:");
-                                            console.log(obj.tracks.items[0].album.images[0].url);
                                             songImage = obj.tracks.items[0].album.images[0].url;
                                             songImage = songImage.replace(/https/g,"http");
+                                            console.log("artwork = ", songImage);
                                          }
                                          else 
                                             console.log("NO ARTWORK");
@@ -327,7 +326,7 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "First card",
                     "subtitle": "Element #1 of an hscroll",
-                    "image_url": songImage,
+                    "image_url": '"' + songImage + '"',
                     "buttons": [{
                         "type": "web_url",
                         "url": "https://www.messenger.com",
@@ -340,7 +339,7 @@ function sendGenericMessage(sender) {
                 }, {
                     "title": "Second card",
                     "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+                    "image_url": songImage,
                     "buttons": [{
                         "type": "postback",
                         "title": "Postback",
