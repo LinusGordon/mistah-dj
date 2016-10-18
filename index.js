@@ -74,10 +74,13 @@ function get_uri(song){
                                     console.log("Not a song.");
                                 } else {
                                     console.log(obj.tracks.items[0]);
-                                    if(obj.tracks.items[0].images != undefined) {
-                                        console.log(obj.tracks.items[0].images[0]);
-                                    } else {
-                                        console.log("NO ARTWORK");
+                                    if(obj.tracks.items[0].album != undefined) {
+                                        if(obj.tracks.items[0].album.images != undefined)
+                                            console.log("the artwork issssss:");
+                                            console.log(obj.tracks.items[0].album.images[0].url);
+                                            songImage = obj.tracks.items[0].album.images[0].url;
+                                         else 
+                                            console.log("NO ARTWORK");
                                     }
                                     //console.log(obj.tracks.items[0].uri);
                                     //songImage = obj.tracks.items.art['$t'];
