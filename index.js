@@ -67,7 +67,7 @@ function get_uri(song){
                 songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", true);
                 songRequest.send();     
                 songRequest.onreadystatechange = function() {
-                        console.log(songRequest.readyState);
+                        //console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
                                 var obj = JSON.parse(songRequest.responseText);
                                 if(obj.tracks.items[0] == undefined) {
@@ -75,8 +75,10 @@ function get_uri(song){
                                 } else {
                                     if(obj.tracks.items[0].images != undefined) {
                                         console.log(obj.tracks.items[0].images[0]);
+                                    } else {
+                                        console.log("NO ARTWORK");
                                     }
-                                    console.log(obj.tracks.items[0].uri);
+                                    //console.log(obj.tracks.items[0].uri);
                                     //songImage = obj.tracks.items.art['$t'];
                                     var songContent = '<ContentItem source="SPOTIFY" type="uri" location="' + obj.tracks.items[0].uri + '" sourceAccount="12173067090"></ContentItem>'
                                     // var songContent = '{\
