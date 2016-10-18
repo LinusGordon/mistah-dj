@@ -173,7 +173,7 @@ app.post('/webhook/', function (req, res) {
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
                         }
-            } else if(text.indexOf("previous song") !== -1 && text.indexOf("play") !== -1) { // user wants to play the previous song
+            } else if(text.indexOf("previous song") !== -1) { // user wants to play the previous song
                         if(songNumber === 0) {
                                 sendTextMessage(sender, "Sorry, you are currently listening to the first song.")
                         } else {
