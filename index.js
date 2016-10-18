@@ -320,28 +320,30 @@ function pauseSong() {
 
 function sendGenericMessage(sender) {
     song = song.replace(/\w\S*/g, function(song){return song.charAt(0).toUpperCase() + song.substr(1).toLowerCase();});
-    let messageData = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": song,
-                    "subtitle": "Now playing",
-                    "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif',
-                    "buttons": [{
-                        "type": "web_url",
-                        "url": "https://linusgordon.github.io/mistah-dj",
-                        "title": "Mistah DJ Homepage"
-                    }, {
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
-                }]
-            }
-        }
-    }
+    var messageData; 
+    for(var i = songNumber; i < playlist.length; i++) {
+            var curSong = playlist[i];
+            curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curong.substr(1).toLowerCase();});
+            messageData += '{ "attachment": { "type": "template", "payload": { "template_type": "generic", "elements": [{ "title": song, "subtitle": "Now playing", "image_url": ' + 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' + ', "buttons": [{
+                            "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], }] } } } }, ';
+    // let messageData = {
+    //     "attachment": {
+    //         "type": "template",
+    //         "payload": {
+    //             "template_type": "generic",
+    //             "elements": [{
+    //                 "title": song,
+    //                 "subtitle": "Now playing",
+    //                 "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif',
+    //                 "buttons": [{
+    //                     "type": "web_url",
+    //                     "url": "https://linusgordon.github.io/mistah-dj",
+    //                     "title": "Mistah DJ Homepage"
+    //                 }],
+    //             }]
+    //         }
+    //     }
+    // }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
