@@ -70,7 +70,7 @@ function get_uri(song){
                         console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
                                 var obj = JSON.parse(songRequest.responseText);
-                                console.log(obj);
+                                console.log(obj.tracks.items[0]);
                                 if(obj.tracks.items[0] == undefined) {
                                     console.log("Not a song.");
                                 } else {
