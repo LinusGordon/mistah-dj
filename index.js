@@ -320,11 +320,13 @@ function pauseSong() {
 
 function sendGenericMessage(sender) {
     song = song.replace(/\w\S*/g, function(song){return song.charAt(0).toUpperCase() + song.substr(1).toLowerCase();});
-    var messageData; 
+    var messageData = { "attachment": { "type": "template", "payload": { "template_type": "generic", "elements" : []} } };
     for(var i = songNumber; i < playlist.length; i++) {
             var curSong = playlist[i];
             curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
-            messageData += { "attachment": { "type": "template", "payload": { "template_type": "generic", "elements": [{ "title": song, "subtitle": "Now playing", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], }] } } } };
+            var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+            messageData.elements.push(jsonData);
+            
     // let messageData = {
     //     "attachment": {
     //         "type": "template",
