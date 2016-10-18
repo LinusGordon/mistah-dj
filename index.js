@@ -117,6 +117,9 @@ app.post('/webhook/', function (req, res) {
             let text = event.message.text.toLowerCase();
             text = text.replace(/[.,\/#!$%\^&\*;:{?}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
             if(text.endsWith("playlist")) {
+                        if(songNumber == 0) {
+                            sendTextMessage(sender, "Sorry, there's nothing in your playlist!");
+                        }
                         sendPlaylistCards(sender);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
