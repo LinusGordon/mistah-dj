@@ -156,6 +156,7 @@ app.post('/webhook/', function (req, res) {
                         }
             } else if(text.startsWith("pause")) { // pause the song
                         pauseSong();
+                        sendTextMessage(sender, "Paused.");
             } else if(text.startsWith("next song") || text.startsWith("play next song")) { // user wants to play the next song
                         if(songNumber === playlist.length - 1) {
                                 sendTextMessage(sender, "You are currently listening to the last song. Add more!");
@@ -179,6 +180,13 @@ app.post('/webhook/', function (req, res) {
                                 songNumber--;
                                 get_uri(playlist[songNumber - 1]);
                                 playSong();
+                        } if(playlist.length > 0) {
+                                        get_uri(playlist[songNumber]);
+                                        playSong();
+                                        sendPlaylistCards(sender);
+                        }
+                        else {
+                                sendTextMessage(sender, "There's nothing in your playlist to play!")
                         }
             } else {
                         sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is currently unavailable.");
