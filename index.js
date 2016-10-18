@@ -315,7 +315,7 @@ function pauseSong() {
 }
 
 function sendPlaylistCards(sender) {
-    if(playlist.length > 1) {
+    if(playlist.length > 0) {
         song = song.replace(/\w\S*/g, function(song){return song.charAt(0).toUpperCase() + song.substr(1).toLowerCase();});
         var messageData = { "attachment": { "type": "template", "payload": { "template_type": "generic", "elements" : []} } };
         for(var i = songNumber; i < playlist.length; i++) {
