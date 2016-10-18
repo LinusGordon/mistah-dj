@@ -327,7 +327,11 @@ function sendPlaylistCards(sender) {
                 if(i == songNumber) {
                     var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
                 } else {
-                    var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+                    if(i % 2 == 0) {
+                        var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+                    } else {
+                        var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2404366/2_djs.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+                    }
                 }
                 messageData.attachment.payload.elements.push(jsonData);
                 
