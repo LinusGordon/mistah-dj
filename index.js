@@ -79,6 +79,7 @@ function get_uri(song){
                                             console.log("the artwork issssss:");
                                             console.log(obj.tracks.items[0].album.images[0].url);
                                             songImage = obj.tracks.items[0].album.images[0].url;
+                                            songImage = songImage.replace(/https/g,"http");
                                          }
                                          else 
                                             console.log("NO ARTWORK");
