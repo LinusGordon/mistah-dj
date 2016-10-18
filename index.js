@@ -73,7 +73,7 @@ function get_uri(song){
                                 if(obj.tracks.items[0] == undefined) {
                                     console.log("Not a song.");
                                 } else {
-                                    console.log(obj.tracks.items[0]);
+                                    //console.log(obj.tracks.items[0]);
                                     if(obj.tracks.items[0].album != undefined) {
                                         if(obj.tracks.items[0].album.images != undefined) {
                                             console.log("the artwork issssss:");
