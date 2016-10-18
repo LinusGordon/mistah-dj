@@ -73,7 +73,7 @@ function get_uri(song){
                                     console.log("Not a song.");
                                 } else {
                                     console.log(obj.tracks.items[0].uri);
-                                    var songImage = obj.tracks.art.['$t'];
+                                    var songImage = obj.tracks.items.art['$t'];
                                     var songContent = '<ContentItem source="SPOTIFY" type="uri" location="' + obj.tracks.items[0].uri + '" sourceAccount="12173067090"></ContentItem>'
                                     // var songContent = '{\
                                     //   "ContentItem": {\
