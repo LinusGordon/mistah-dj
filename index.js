@@ -26,6 +26,7 @@ var playlist = [];
 var currentSong;
 var paused; // flag for paused or not
 var songNumber; // keeps track of where we are in playlist
+var songImage;
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -69,11 +70,12 @@ function get_uri(song){
                         console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
                                 var obj = JSON.parse(songRequest.responseText);
+                                console.log(obj);
                                 if(obj.tracks.items[0] == undefined) {
                                     console.log("Not a song.");
                                 } else {
                                     console.log(obj.tracks.items[0].uri);
-                                    var songImage = obj.tracks.items.art['$t'];
+                                    //songImage = obj.tracks.items.art['$t'];
                                     var songContent = '<ContentItem source="SPOTIFY" type="uri" location="' + obj.tracks.items[0].uri + '" sourceAccount="12173067090"></ContentItem>'
                                     // var songContent = '{\
                                     //   "ContentItem": {\
@@ -138,7 +140,7 @@ app.post('/webhook/', function (req, res) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
                                         sendTextMessage(sender, "Playing: " + playlist[songNumber]);
-                                        sendGenericMessage(sender);
+                                        //sendGenericMessage(sender);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
