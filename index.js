@@ -23,6 +23,7 @@ console.log(IP_ADDRESS);
 const SPOTIFY_USERNAME = "linusbose";
 
 var playlist = [];
+var songImages = [];
 var currentSong;
 var paused; // flag for paused or not
 var songNumber; // keeps track of where we are in playlist
@@ -80,6 +81,7 @@ function get_uri(song){
                                             songImage = obj.tracks.items[0].album.images[0].url;
                                             songImage = songImage.replace(/https/g,"http");
                                             console.log("artwork = ", songImage);
+                                            songImages.push(songImage);
                                          }
                                          else 
                                             console.log("NO ARTWORK");
@@ -331,9 +333,9 @@ function sendPlaylistCards(sender) {
                 var curSong = playlist[i];
                 curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
                 if(i == songNumber) {
-                    var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": songImage, "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+                    var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": songImages[i], "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
                 } else {
-                        var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": songImage, "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+                        var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": songImages[i], "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
                 }
                 messageData.attachment.payload.elements.push(jsonData);
                 
