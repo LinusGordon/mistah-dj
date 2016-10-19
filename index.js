@@ -28,6 +28,7 @@ var paused; // flag for paused or not
 var songNumber; // keeps track of where we are in playlist
 var songImage;
 var song;
+var volume;
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -61,7 +62,6 @@ function get_uri(song){
         if(song !== undefined) {
                 song = song.replace(/ /g,"%20");
         }
-
                 var songRequest = new XMLHttpRequest();
                                 // Step 2: Make request to remote resource
                                 // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
@@ -128,6 +128,7 @@ app.post('/webhook/', function (req, res) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
                         removeSong(sender, text);
             } else if(text.startsWith("clear")) { // clear the playlist
+                        volume = 50;
                         songNumber = 0;
                         clearPlaylist();
                         sendTextMessage(sender, "Playlist count is now: " + playlist.length);
@@ -149,6 +150,7 @@ app.post('/webhook/', function (req, res) {
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
+                                        playSong();
                                         sendPlaylistCards(sender);
                         }
                         else {
@@ -164,9 +166,11 @@ app.post('/webhook/', function (req, res) {
                                 songNumber++;
                                 get_uri(playlist[songNumber + 1]);
                                 playSong();
+                                playSong();
                         }
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
+                                        playSong();
                                         playSong();
                                         sendPlaylistCards(sender);
                         }
@@ -180,14 +184,22 @@ app.post('/webhook/', function (req, res) {
                                 songNumber--;
                                 get_uri(playlist[songNumber - 1]);
                                 playSong();
+                                playSong();
                         } if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
+                                        playSong();
                                         playSong();
                                         sendPlaylistCards(sender);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
                         }
+            } else if(text.indexOf("volume up") !== -1) {
+                volume += 10;
+                changeVolume();
+            } else if(text.indexOf("volume down") !== -1) {
+                volume -= 10;
+                changeVolume();
             } else {
                         sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is currently unavailable.");
             }
@@ -377,6 +389,24 @@ function sendPlaylistCards(sender) {
     } else {
         sendTextMessage(sender, "Sorry, there's nothing in your playlist!")
     }
+}
+
+function changeVolume() {
+    $.ajax({
+                url: "http://b49a8572.ngrok.io/volum",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: '<volume>' + volume + '</volume>',
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                },
+                success: function(data, textStatus) {
+                        console.log(data);
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                        //onEndAjax();
+                }
+        });
 }
 
 
