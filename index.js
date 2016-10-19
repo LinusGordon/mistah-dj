@@ -381,7 +381,7 @@ function getArtwork(song) {
                 songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", false);
                 songRequest.send();     
                 console.log("just sent request");
-                songRequest.onreadystatechange = function() {
+               // songRequest.onreadystatechange = function() {
                         console.log("request issss: ");
                         console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
@@ -402,7 +402,7 @@ function getArtwork(song) {
                                     }
                                 }
                         }
-                }
+                //}
 
         
 }
