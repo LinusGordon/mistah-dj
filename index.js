@@ -169,14 +169,6 @@ app.post('/webhook/', function (req, res) {
                                 get_uri(playlist[songNumber + 1]);
                                 setTimeout(function(){ playSong(); }, 1500);
                         }
-                        if(playlist.length > 0) {
-                                        get_uri(playlist[songNumber]);
-                                        setTimeout(function(){ playSong(); }, 1500);
-                                        sendPlaylistCards(sender);
-                        }
-                        else {
-                                sendTextMessage(sender, "There's nothing in your playlist to play!")
-                        }
             } else if(text.indexOf("previous song") !== -1) { // user wants to play the previous song
                         if(songNumber === 0) {
                                 sendTextMessage(sender, "Sorry, you are currently listening to the first song.")
@@ -184,14 +176,7 @@ app.post('/webhook/', function (req, res) {
                                 songNumber--;
                                 get_uri(playlist[songNumber - 1]);
                                 setTimeout(function(){ playSong(); }, 1500);
-                        } if(playlist.length > 0) {
-                                        get_uri(playlist[songNumber]);
-                                        setTimeout(function(){ playSong(); }, 1500);
-                                        sendPlaylistCards(sender);
-                        }
-                        else {
-                                sendTextMessage(sender, "There's nothing in your playlist to play!")
-                        }
+                        } 
             } else if(text.indexOf("volume up") !== -1) {
                 if(volume <= 90) {
                     volume += 10;
