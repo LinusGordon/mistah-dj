@@ -321,6 +321,7 @@ function sendPlaylistCards(sender) {
         song = song.replace(/\w\S*/g, function(song){return song.charAt(0).toUpperCase() + song.substr(1).toLowerCase();});
         var messageData = { "attachment": { "type": "template", "payload": { "template_type": "generic", "elements" : []} } };
         for(var i = songNumber; i < playlist.length; i++) {
+                console.log("artwork = ", songImages[i]);
                 var curSong = playlist[i];
                 curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
                 if(i == songNumber) {
@@ -330,25 +331,6 @@ function sendPlaylistCards(sender) {
                         var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": songImages[i], "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
                 }
                 messageData.attachment.payload.elements.push(jsonData);
-                
-        // let messageData = {
-        //     "attachment": {
-        //         "type": "template",
-        //         "payload": {
-        //             "template_type": "generic",
-        //             "elements": [{
-        //                 "title": song,
-        //                 "subtitle": "Now playing",
-        //                 "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2227243/dj.gif',
-        //                 "buttons": [{
-        //                     "type": "web_url",
-        //                     "url": "https://linusgordon.github.io/mistah-dj",
-        //                     "title": "Mistah DJ Homepage"
-        //                 }],
-        //             }]
-        //         }
-        //     }
-        // }
         }
         request({
             url: 'https://graph.facebook.com/v2.6/me/messages',
