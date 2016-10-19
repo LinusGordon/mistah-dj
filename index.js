@@ -167,11 +167,11 @@ app.post('/webhook/', function (req, res) {
                         } else {
                                 songNumber++;
                                 get_uri(playlist[songNumber + 1]);
-                                playSong();
+                                setTimeout(function(){ playSong(); }, 1500);
                         }
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
-                                        playSong();
+                                        setTimeout(function(){ playSong(); }, 1500);
                                         sendPlaylistCards(sender);
                         }
                         else {
