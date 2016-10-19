@@ -335,6 +335,7 @@ function sendPlaylistCards(sender) {
                 if(i == songNumber) {
                     var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": songImages[i], "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
                 } else {
+                        console.log(songImages[i]);
                         var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": songImages[i], "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
                 }
                 messageData.attachment.payload.elements.push(jsonData);
