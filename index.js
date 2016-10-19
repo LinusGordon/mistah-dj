@@ -420,7 +420,4 @@ function getArtwork(song) {
                 }
 
         
-  }
 }
-
-
