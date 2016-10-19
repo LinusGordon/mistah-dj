@@ -393,7 +393,7 @@ function sendPlaylistCards(sender) {
 
 function changeVolume() {
     $.ajax({
-                url: "http://b49a8572.ngrok.io/volum",
+                url: "http://b49a8572.ngrok.io/volume",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: '<volume>' + volume + '</volume>',
