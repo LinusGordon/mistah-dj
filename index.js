@@ -66,7 +66,7 @@ function get_uri(song){
                 var songRequest = new XMLHttpRequest();
                                 // Step 2: Make request to remote resource
                                 // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
-                songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", true);
+                songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", false);
                 songRequest.send();     
                 songRequest.onreadystatechange = function() {
                         //console.log(songRequest.readyState);
@@ -120,7 +120,7 @@ app.post('/webhook/', function (req, res) {
             let text = event.message.text.toLowerCase();
             text = text.replace(/[.,\/#!$%\^&\*;:{?}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
             if(text.endsWith("playlist")) {
-                        setTimeout(function() { sendPlaylistCards(sender) }, 1500);
+                        sendPlaylistCards(sender);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
                         song = text.substr(text.indexOf("add") + 3, text.length);
@@ -154,8 +154,8 @@ app.post('/webhook/', function (req, res) {
             } else if(text.startsWith("play") && text.indexOf("playlist") == -1) { // play song
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
-                                        setTimeout(function(){ playSong(); }, 1500);
-                                        setTimeout(function() { sendPlaylistCards(sender) }, 1500);
+                                        playSong();
+                                        sendPlaylistCards(sender);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
@@ -169,7 +169,7 @@ app.post('/webhook/', function (req, res) {
                         } else {
                                 songNumber++;
                                 get_uri(playlist[songNumber + 1]);
-                                setTimeout(function(){ playSong(); }, 1500);
+                                playSong();
                         }
             } else if(text.indexOf("previous song") !== -1) { // user wants to play the previous song
                         if(songNumber === 0) {
@@ -177,7 +177,7 @@ app.post('/webhook/', function (req, res) {
                         } else {
                                 songNumber--;
                                 get_uri(playlist[songNumber - 1]);
-                                setTimeout(function(){ playSong(); }, 1500);
+                                playSong();
                         } 
             } else if(text.indexOf("volume up") !== -1) {
                 if(volume <= 90) {
