@@ -320,7 +320,7 @@ function sendPlaylistCards(sender) {
         song = song.replace(/\w\S*/g, function(song){return song.charAt(0).toUpperCase() + song.substr(1).toLowerCase();});
         var messageData = { "attachment": { "type": "template", "payload": { "template_type": "generic", "elements" : []} } };
         for(var i = songNumber; i < playlist.length; i++) {
-                console.log("artwork = ", songImages[i]);
+                console.log("cards artwork = ", songImages[i]);
                 var curSong = playlist[i];
                 curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
                 if(i == songNumber) {
@@ -390,7 +390,7 @@ function getArtwork(song) {
                                         if(obj.tracks.items[0].album.images != undefined) {
                                             songImage = obj.tracks.items[0].album.images[0].url;
                                             songImage = songImage.replace(/https/g,"http");
-                                            console.log("artwork = ", songImage);
+                                            console.log("get Artwork: artwork = ", songImage);
                                             songImages.push(songImage);
                                          }
                                          else 
