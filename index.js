@@ -138,10 +138,12 @@ app.post('/webhook/', function (req, res) {
                         sendTextMessage(sender, "sup");
             } else if(text.startsWith("help")) { // help menu
                         var output = "To add a song, type 'add [song name]'\n";
-                        output += "To add a song, type 'add [song name]'\n";
                         output += "To remove a song type 'remove [song name]\n";
-                        output += "To see your playlist type 'playlist?'\n";
+                        output += "To see your playlist type 'playlist'\n";
                         output += "To clear your playlist type 'clear'\n";
+                        output += "To play your playlist, type 'play'\n";
+                        output += "To pause your playlist, type 'pause'\n";
+                        output += "Volume [up/down]\n";
                         output += "For more about me type 'more'\n";
                                         sendTextMessage(sender, output);
             } else if(text.startsWith("more")) { // more
@@ -196,9 +198,11 @@ app.post('/webhook/', function (req, res) {
                         }
             } else if(text.indexOf("volume up") !== -1) {
                 volume += 10;
+                sendTextMessage(sender, "Volume set to: " + (volume / 10) + "/10.");
                 changeVolume();
             } else if(text.indexOf("volume down") !== -1) {
                 volume -= 10;
+                sendTextMessage(sender, "Volume set to: " + (volume / 10) + "/10.")
                 changeVolume();
             } else {
                         sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is currently unavailable.");
