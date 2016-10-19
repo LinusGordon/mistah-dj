@@ -118,7 +118,7 @@ app.post('/webhook/', function (req, res) {
             let text = event.message.text.toLowerCase();
             text = text.replace(/[.,\/#!$%\^&\*;:{?}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
             if(text.endsWith("playlist")) {
-                        sendPlaylistCards(sender);
+                        setTimeout(function() { sendPlaylistCards(sender) }, 1500);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
                         song = text.substr(text.indexOf("add") + 3, text.length);
@@ -153,7 +153,7 @@ app.post('/webhook/', function (req, res) {
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
                                         setTimeout(function(){ playSong(); }, 1500);
-                                        sendPlaylistCards(sender);
+                                        setTimeout(function() { sendPlaylistCards(sender) }, 1500);
                         }
                         else {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
@@ -331,13 +331,9 @@ function sendPlaylistCards(sender) {
                 var curSong = playlist[i];
                 curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
                 if(i == songNumber) {
-                    var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": songImage , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+                    var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": songImage, "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
                 } else {
-                    if(i % 2 == 0) {
-                        var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": songImage , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
-                    } else {
-                        var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": 'https://d13yacurqjgara.cloudfront.net/users/244516/screenshots/2404366/2_djs.gif' , "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
-                    }
+                        var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": songImage, "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
                 }
                 messageData.attachment.payload.elements.push(jsonData);
                 
