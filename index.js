@@ -370,15 +370,19 @@ function changeVolume() {
 }
 
 function getArtwork(song) {
+        console.log("in get artwork");
         if(song !== undefined) {
                 song = song.replace(/ /g,"%20");
         }
+                console.log("before request");
                 var songRequest = new XMLHttpRequest();
                                 // Step 2: Make request to remote resource
                                 // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
                 songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", false);
                 songRequest.send();     
+                console.log("just sent request");
                 songRequest.onreadystatechange = function() {
+                        console.log("request issss: ");
                         console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
                                 var obj = JSON.parse(songRequest.responseText);
