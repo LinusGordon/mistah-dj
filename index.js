@@ -75,17 +75,6 @@ function get_uri(song){
                                 if(obj.tracks.items[0] == undefined) {
                                     console.log("Not a song.");
                                 } else {
-                                    //console.log(obj.tracks.items[0]);
-                                    if(obj.tracks.items[0].album != undefined) {
-                                        if(obj.tracks.items[0].album.images != undefined) {
-                                            songImage = obj.tracks.items[0].album.images[0].url;
-                                            songImage = songImage.replace(/https/g,"http");
-                                            console.log("artwork = ", songImage);
-                                            songImages.push(songImage);
-                                         }
-                                         else 
-                                            console.log("NO ARTWORK");
-                                    }
                                     //console.log(obj.tracks.items[0].uri);
                                     //songImage = obj.tracks.items.art['$t'];
                                     var songContent = '<ContentItem source="SPOTIFY" type="uri" location="' + obj.tracks.items[0].uri + '" sourceAccount="12173067090"></ContentItem>'
@@ -120,11 +109,13 @@ app.post('/webhook/', function (req, res) {
             let text = event.message.text.toLowerCase();
             text = text.replace(/[.,\/#!$%\^&\*;:{?}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
             if(text.endsWith("playlist")) {
+                        getArtwork(text);
                         sendPlaylistCards(sender);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
                         song = text.substr(text.indexOf("add") + 3, text.length);
                         playlist.push(song);
+
                         sendTextMessage(sender, "Added" + song + " to playlist.");
             } else if(text.startsWith("remove")) {
                         text = text.replace(/remove/g,'');
@@ -397,5 +388,39 @@ function changeVolume() {
         });
 }
 
+function getArtwork(song) {
+        if(song !== undefined) {
+                song = song.replace(/ /g,"%20");
+        }
+                var songRequest = new XMLHttpRequest();
+                                // Step 2: Make request to remote resource
+                                // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
+                songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", false);
+                songRequest.send();     
+                songRequest.onreadystatechange = function() {
+                        //console.log(songRequest.readyState);
+                        if(songRequest.readyState == 4) {
+                                var obj = JSON.parse(songRequest.responseText);
+                                if(obj.tracks.items[0] == undefined) {
+                                    console.log("Not a song.");
+                                } else {
+                                    //console.log(obj.tracks.items[0]);
+                                    if(obj.tracks.items[0].album != undefined) {
+                                        if(obj.tracks.items[0].album.images != undefined) {
+                                            songImage = obj.tracks.items[0].album.images[0].url;
+                                            songImage = songImage.replace(/https/g,"http");
+                                            console.log("artwork = ", songImage);
+                                            songImages.push(songImage);
+                                         }
+                                         else 
+                                            console.log("NO ARTWORK");
+                                    }
+                                }
+                        }
+                }
+
+        
+  }
+}
 
 
