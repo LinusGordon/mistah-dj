@@ -112,6 +112,7 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id;
         if (event.message && event.message.text) {
                 if(playlist.length === 0) {
+                        volume = 50;
                         songNumber = 0;
                 }
             let text = event.message.text.toLowerCase();
@@ -197,12 +198,16 @@ app.post('/webhook/', function (req, res) {
                                 sendTextMessage(sender, "There's nothing in your playlist to play!")
                         }
             } else if(text.indexOf("volume up") !== -1) {
-                volume += 10;
-                sendTextMessage(sender, "Volume set to: " + (volume / 10) + "/10.");
+                if(volume <= 90) {
+                    volume += 10;
+                }
+                sendTextMessage(sender, "Volume set to: " + (volume / 10) + "/10");
                 changeVolume();
             } else if(text.indexOf("volume down") !== -1) {
-                volume -= 10;
-                sendTextMessage(sender, "Volume set to: " + (volume / 10) + "/10.")
+                if(volume >= 10) {
+                    volume -= 10;
+                }
+                sendTextMessage(sender, "Volume set to: " + (volume / 10) + "/10")
                 changeVolume();
             } else {
                         sendTextMessage(sender, "You said: " + text.substring(0, 200) + " That command is currently unavailable.");
