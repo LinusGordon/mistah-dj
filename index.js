@@ -379,7 +379,7 @@ function getArtwork(song) {
                 songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", false);
                 songRequest.send();     
                 songRequest.onreadystatechange = function() {
-                        //console.log(songRequest.readyState);
+                        console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
                                 var obj = JSON.parse(songRequest.responseText);
                                 if(obj.tracks.items[0] == undefined) {
