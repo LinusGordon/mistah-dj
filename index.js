@@ -68,7 +68,6 @@ function get_uri(song){
                                 // NOTE: https://messagehub.herokuapp.com has cross-origin resource sharing enabled
                 songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", false);
                 songRequest.send();     
-                songRequest.onreadystatechange = function() {
                         //console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
                                 var obj = JSON.parse(songRequest.responseText);
@@ -90,10 +89,7 @@ function get_uri(song){
                                     currentSong = songContent;  
                                 }
                         }
-                }
-
-        
-  }
+}
 
 
 app.post('/webhook/', function (req, res) {
@@ -381,7 +377,6 @@ function getArtwork(song) {
                 songRequest.open("get", "https://api.spotify.com/v1/search?q=" + song + "&type=track", false);
                 songRequest.send();     
                 console.log("just sent request");
-               // songRequest.onreadystatechange = function() {
                         console.log("request issss: ");
                         console.log(songRequest.readyState);
                         if(songRequest.readyState == 4) {
@@ -402,7 +397,4 @@ function getArtwork(song) {
                                     }
                                 }
                         }
-                //}
-
-        
 }
