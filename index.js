@@ -153,7 +153,6 @@ app.post('/webhook/', function (req, res) {
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
                                         playSong();
-                                        playSong();
                                         sendPlaylistCards(sender);
                         }
                         else {
@@ -169,11 +168,9 @@ app.post('/webhook/', function (req, res) {
                                 songNumber++;
                                 get_uri(playlist[songNumber + 1]);
                                 playSong();
-                                playSong();
                         }
                         if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
-                                        playSong();
                                         playSong();
                                         sendPlaylistCards(sender);
                         }
@@ -187,10 +184,8 @@ app.post('/webhook/', function (req, res) {
                                 songNumber--;
                                 get_uri(playlist[songNumber - 1]);
                                 playSong();
-                                playSong();
                         } if(playlist.length > 0) {
                                         get_uri(playlist[songNumber]);
-                                        playSong();
                                         playSong();
                                         sendPlaylistCards(sender);
                         }
