@@ -114,7 +114,7 @@ app.post('/webhook/', function (req, res) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
                         song = text.substr(text.indexOf("add") + 3, text.length);
                         playlist.push(song);
-                        getArtwork(text);
+                        getArtwork(song);
                         sendTextMessage(sender, "Added" + song + " to playlist.");
             } else if(text.startsWith("remove")) {
                         text = text.replace(/remove/g,'');
