@@ -24,6 +24,7 @@ const SPOTIFY_USERNAME = "linusbose";
 
 var playlist = [];
 var songImages = [];
+var artistNames = [];
 var currentSong;
 var paused; // flag for paused or not
 var songNumber; // keeps track of where we are in playlist
@@ -220,6 +221,8 @@ function printPlaylist(sender) {
 
 function clearPlaylist() {
         playlist = [];
+        artistNames = [];
+        songImages = [];
 }
 
 function removeSong(sender, song) {
@@ -319,12 +322,9 @@ function sendPlaylistCards(sender) {
                 console.log("cards artwork = ", songImages[i]);
                 var curSong = playlist[i];
                 curSong = curSong.replace(/\w\S*/g, function(curSong){return curSong.charAt(0).toUpperCase() + curSong.substr(1).toLowerCase();});
-                if(i == songNumber) {
-                    var jsonData = { "title": curSong, "subtitle": "Now playing", "image_url": songImages[i], "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
-                } else {
-                        console.log(songImages[i]);
-                        var jsonData = { "title": curSong, "subtitle": "Coming up soon", "image_url": songImages[i], "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
-                }
+                var curArtist = artistNames[i];
+                    var jsonData = { "title": curSong, "subtitle": "By " + curArtist, "image_url": songImages[i], "buttons": [{ "type": "web_url", "url": "https://linusgordon.github.io/mistah-dj", "title": "Mistah DJ Homepage" }], };
+                
                 messageData.attachment.payload.elements.push(jsonData);
         }
         request({
@@ -394,6 +394,9 @@ function getArtwork(song) {
                                          }
                                          else 
                                             console.log("NO ARTWORK");
+                                    }
+                                    if(obj.tracks.items[0].artists != undefined) {
+                                        artistNames.push(obj.tracks.items[0].artists[0].name);
                                     }
                                 }
                         }
