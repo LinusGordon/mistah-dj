@@ -18,7 +18,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
-const IP_ADDRESS = "http://b49a8572.ngrok.io";
+const IP_ADDRESS = "http://f7a51d87.ngrok.io";
 console.log(IP_ADDRESS);
 const SPOTIFY_USERNAME = "linusbose";
 
@@ -243,7 +243,7 @@ function playSong() {
         console.log("IN PLAY SONG");
         console.log(currentSong);
         $.ajax({
-            url: 'http://b49a8572.ngrok.io/select',
+            url: IP_ADDRESS + '/select',
             data: currentSong, 
             type: 'POST',
             contentType: "text/xml",
@@ -274,7 +274,7 @@ function playSong() {
 
 function pauseSong() {
         $.ajax({
-                url: "http://b49a8572.ngrok.io/key",
+                url: IP_ADDRESS + "/key",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: '<key state="press" sender="Gabbo">PAUSE</key>',
@@ -349,7 +349,7 @@ function sendPlaylistCards(sender) {
 
 function changeVolume() {
     $.ajax({
-                url: "http://b49a8572.ngrok.io/volume",
+                url: IP_ADDRESS + "/volume",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: '<volume>' + volume + '</volume>',
