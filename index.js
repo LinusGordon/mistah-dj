@@ -156,7 +156,7 @@ app.post('/webhook/', function (req, res) {
                         } else {
                                 songNumber++;
                                 get_uri(playlist[songNumber + 1]);
-                                playSong();
+                                setTimeout(function() { playSong(); }, 1500);
                         }
             } else if(text.indexOf("previous song") !== -1) { // user wants to play the previous song
                         if(songNumber === 0) {
