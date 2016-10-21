@@ -18,7 +18,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
 
-const IP_ADDRESS = "http://aceb731f.ngrok.io";
+const IP_ADDRESS = "http://b30ddca1.ngrok.io";
 console.log(IP_ADDRESS);
 const SPOTIFY_USERNAME = "linusbose";
 
