@@ -107,7 +107,7 @@ app.post('/webhook/', function (req, res) {
             text = text.replace(/[.,\/#!$%\^&\*;:{?}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
             if(text.endsWith("playlist")) {
                         sendPlaylistCards(sender);
-            } else if(text.startsWith("add pandora station") {
+            } else if(text.startsWith("add pandora station")) {
                         song = text.replace(/add pandora station/g,'');
                         playPandora(song);
             } else if(text.startsWith("add") && !text.startsWith("added")) {
