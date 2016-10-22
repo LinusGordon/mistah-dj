@@ -409,7 +409,7 @@ function getArtwork(song) {
 function playPandora(song) {
         $.ajax({
             url: IP_ADDRESS + '/select',
-            data: <ContentItem source="PANDORA" itemName=song+" Radio" sourceAccount="linusgordon@gmail.com"></ContentItem>, 
+            data: '<ContentItem source="PANDORA" itemName=song+" Radio" sourceAccount="linusgordon@gmail.com"></ContentItem>', 
             type: 'POST',
             contentType: "text/xml",
             dataType: "text",
