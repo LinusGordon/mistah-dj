@@ -406,7 +406,7 @@ function getArtwork(song) {
                         }
 }
 
-function playPandora(song) {
+/* function playPandora(song) {
         $.ajax({
             url: IP_ADDRESS + '/select',
             data: '<ContentItem source="PANDORA" itemName=song+" Radio" sourceAccount="linusgordon@gmail.com"></ContentItem>', 
@@ -436,4 +436,4 @@ function playPandora(song) {
 
    paused = false; 
 }
-}
+} */
