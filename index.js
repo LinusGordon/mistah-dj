@@ -107,9 +107,10 @@ app.post('/webhook/', function (req, res) {
             text = text.replace(/[.,\/#!$%\^&\*;:{?}=\-_`~()]/g,""); // Remove all non-alphanumeric characters except ?
             if(text.endsWith("playlist")) {
                         sendPlaylistCards(sender);
-            } else if(text.startsWith("add pandora station")) {
-                        song = text.replace(/add pandora station/g,'');
+            } else if(text.startsWith("play pandora station")) {
+                        song = text.replace(/play pandora station/g,'');
                         playPandora(song);
+                        sendTextMessage("Playing " + song + "station")
             } else if(text.startsWith("add") && !text.startsWith("added")) {
                         text = text.replace(/the song/g,''); // remove "the song" from string
                         song = text.substr(text.indexOf("add") + 3, text.length);
@@ -406,10 +407,10 @@ function getArtwork(song) {
                         }
 }
 
-/* function playPandora(song) {
+function playPandora(song) {
         $.ajax({
             url: IP_ADDRESS + '/select',
-            data: '<ContentItem source="PANDORA" itemName=song+" Radio" sourceAccount="linusgordon@gmail.com"></ContentItem>', 
+            data: '<ContentItem source="PANDORA" itemName=' + song + '" Radio" sourceAccount="linusgordon@gmail.com"></ContentItem>', 
             type: 'POST',
             contentType: "text/xml",
             dataType: "text",
@@ -418,22 +419,6 @@ function getArtwork(song) {
                 console.log(thrownError);
             } 
         }); 
-        // $.ajax({
-        //         url: "http://3eb0e343.ngrok.io/select",
-        //         type: "POST",
-        //         contentType: "application/json; charset=utf-8",
-        //         data: currentSong,
-        //         error: function(XMLHttpRequest, textStatus, errorThrown) {
-        //                 console.log(errorThrown);
-        //         },
-        //         success: function(data, textStatus) {
-        //                 console.log("success");
-        //         },
-        //         complete: function(XMLHttpRequest, textStatus) {
-        //                 console.log("success");
-        //         }
-        // });
 
    paused = false; 
-}
-} */
+} 
