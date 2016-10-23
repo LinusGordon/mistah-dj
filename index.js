@@ -445,7 +445,7 @@ function playPandora(song) {
         }
         $.ajax({
             url: IP_ADDRESS + '/select',
-            data: '<ContentItem source="PANDORA" location=' + location + 'sourceAccount="linusgordon@gmail.com"></ContentItem>', 
+            data: '<ContentItem source="PANDORA" location=' + location + ' sourceAccount="linusgordon@gmail.com"></ContentItem>', 
             type: 'POST',
             contentType: "text/xml",
             dataType: "text",
