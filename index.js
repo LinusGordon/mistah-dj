@@ -408,10 +408,44 @@ function getArtwork(song) {
 }
 
 function playPandora(song) {
-        console.log(song);
+        // I'm doing this because there is no Pandora API :(
+        var location = "260765842857723623"; // default to Kanye because that's what most of my friends like
+        if(song == "mayer hawthorne") {
+            location = "3409967230154639079";
+        } else if(song == "childish gambino") {
+            location = "3409968750573061863";
+        } else if(song == "drake") {
+            location = "3409976481514194663";
+        } else if(song == "action bronson") {
+            location = "3409977400637196007";
+        } else if(song == "chance the rapper") {
+            location = "3409977941803075303";
+        } else if(song == "giraffage") {
+            location = "3409978865221043943";
+        } else if(song == "cam meekins") {
+            location = "3409979672674895591";
+        } else if(song == "beach house") {
+            location = "3409980424294172391";
+        } else if(song == "mild high club") {
+            location = "3409980858085869287";
+        } else if(song == "frank ocean") {
+            location = "3409982000547170023";
+        } else if(song == "lil dicky") {
+            location = "3409982477288539879";
+        } else if(song == "starfucker") {
+            location = "3409983289037358823";
+        } else if(song == "beatles") {
+            location = "3409983830203238119";
+        } else if(song == "post malone") {
+            location = "3409984573232580327";
+        } else if(song.indexOf("snoop") !== -1) {
+            location = "3409985372096497383";
+        } else if(song == "warm brew") {
+            location = "3409986660586686183";
+        }
         $.ajax({
             url: IP_ADDRESS + '/select',
-            data: '<ContentItem source="PANDORA" location="260778813658957543"  sourceAccount="linusgordon@gmail.com"></ContentItem>', 
+            data: '<ContentItem source="PANDORA" location=' + location + 'sourceAccount="linusgordon@gmail.com"></ContentItem>', 
             type: 'POST',
             contentType: "text/xml",
             dataType: "text",
