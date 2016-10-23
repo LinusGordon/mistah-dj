@@ -411,7 +411,7 @@ function playPandora(song) {
         console.log(song);
         $.ajax({
             url: IP_ADDRESS + '/select',
-            data: '<ContentItem source="PANDORA" location="260778813658957543" sourceAccount="linusgordon@gmail.com"></ContentItem>', 
+            data: '<ContentItem source="PANDORA" location="260778813658957543"  sourceAccount="linusgordon@gmail.com"></ContentItem>', 
             type: 'POST',
             contentType: "text/xml",
             dataType: "text",
