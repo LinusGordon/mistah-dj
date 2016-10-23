@@ -408,6 +408,7 @@ function getArtwork(song) {
 }
 
 function playPandora(song) {
+        console.log(song);
         $.ajax({
             url: IP_ADDRESS + '/select',
             data: '<ContentItem source="PANDORA" itemName=' + song + '" Radio" sourceAccount="linusgordon@gmail.com"></ContentItem>', 
